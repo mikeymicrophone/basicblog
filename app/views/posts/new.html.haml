@@ -1,0 +1,4 @@
+- form_for(:post, :action => url( :controller => :posts , :action => :create), :method => :post) do
+	= text_control(:title)
+	= text_area_control(:body)
+	= submit_button 'publish'

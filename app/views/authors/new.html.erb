@@ -1,0 +1,13 @@
+<h1>Authors controller, new action</h1>
+
+<p>Edit this file in <tt>app/views/authors/new.html.erb</tt></p>
+
+<%= error_messages_for :author %>
+
+<% form_for(@author, :action => url(:authors) ) do |f| %>
+  <p>
+    <%= submit_button "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', url(:authors) %>

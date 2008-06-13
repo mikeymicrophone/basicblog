@@ -1,0 +1,9 @@
+#months
+  - months.each do |name,month|
+    = link_to(name, url(:controller => "posts", :action => :month_of , :month => month))
+#posts
+  - @posts.each do |p|
+    .post 
+      .title= (p.title || 'title') + '  ' + (p.created_at || Time.now).strftime("%m/%y")
+      = textilized(p)
+    %hr
