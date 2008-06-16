@@ -5,14 +5,24 @@ describe Post do
   before do
     @author = Author.create :name => 'Jim'
     @post = Post.create :body => 'riveted?', :title => 'just wait', :author_id => @author.id
+    @bodyless_post = Post.create :title => 'ham'
+    @untitled_post = Post.create :body => 'slow'
   end
 
   it "should have a body" do
-    @post.body.should_not be_nil
+    @post.body.should_not(be_nil)
+  end
+  
+  it "should validate the presence of the body" do
+    @bodyless_post.should_not be_valid
   end
   
   it "should have a title" do
     @post.title.should_not be_nil
+  end
+  
+  it "should validate the presence of the title" do
+    @untitled_post.should_not be_valid
   end
   
   it "should have a timestamp" do

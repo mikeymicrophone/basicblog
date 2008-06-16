@@ -1,4 +1,10 @@
 - form_for(:post, :action => url( :controller => :posts , :action => :create), :method => :post) do
-	= text_control(:title)
-	= text_area_control(:body)
-	= submit_button 'publish'
+  = text_control(:title)
+  title
+  %br
+  = text_area_control(:body)
+  thoughts
+  %br
+  = submit_button 'publish'
+
+= @message if @message

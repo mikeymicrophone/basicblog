@@ -11,12 +11,16 @@ class Posts < Application
   end
   
   def month_of
-    @posts = Post.in_month params[:month]
+    @posts = Post.in_month params[:month].to_i
     render :index
   end
 
   def new
-    @post = Post.new
+    if params[:post]
+      @message = "this post is incomplete and NOT SUITABLE FOR THIS BLOOOOOOGGGGGGGGG."
+    else
+      @post = Post.new
+    end
     render
   end
 
@@ -30,8 +34,12 @@ class Posts < Application
   end
 
   def create
-    @post = Post.create :body => params[:body], :title => params[:title], :author_id => 1
-    render :show
+    @post = Post.create :body => params[:post][:body], :title => params[:post][:title], :author_id => 1
+    if @post.valid?
+      render :show
+    else
+      redirect :action => :new
+    end
   end
 
   def update
