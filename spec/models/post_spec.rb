@@ -44,6 +44,7 @@ describe "Post month sorting" do
   
   it "should be able to scope the posts to those from a single month" do
     (1..12).each do |month|
+      Post.should_receive(:all)
       Post.in_month(month).map { |post| post.created_at.month }.uniq.length.should be 1
     end
   end

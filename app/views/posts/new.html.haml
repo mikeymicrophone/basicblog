@@ -1,10 +1,11 @@
-- form_for(:post, :action => url( :controller => :posts , :action => :create), :method => :post) do
-  = text_control(:title)
-  title
-  %br
-  = text_area_control(:body)
-  thoughts
-  %br
-  = submit_button 'publish'
+.new_post
+  - form_for(:post, :action => url( :controller => :posts , :action => :create), :method => :post) do
+    .blog_post_title
+      = text_control(:title, :class => 'required')
+      title
+    .blog_post
+      = text_area_control(:body, :class => 'required')
+      thoughts
+    = submit_button 'publish'
 
 = @message if @message

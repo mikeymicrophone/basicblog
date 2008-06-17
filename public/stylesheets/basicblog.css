@@ -1,0 +1,16 @@
+.unfinished_form {
+	border: 1px solid #900;
+	width: 300px;
+}
+
+.new_post {
+	padding-left: 20px;
+}
+
+.new_post input {
+	margin-top: 40px;
+}
+
+.new_post textarea {
+	margin-top: 30px;
+}
