@@ -4,6 +4,7 @@
 #posts
   - @posts.each do |p|
     .post 
-      .title= (p.title || 'title') + '  ' + (p.created_at || Time.now).strftime("%m/%y")
-      = textilized(p)
+      .title= p.title
+      .date= p.created_at.strftime("%m/%y") if p.created_at
+      .post_body= textilized(p)
     %hr

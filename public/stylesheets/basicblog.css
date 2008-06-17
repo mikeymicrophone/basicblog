@@ -1,3 +1,18 @@
+.post {
+	border: 2px solid #234567;
+	margin-left: 45px;
+	font-size: 15px;
+}
+
+.title {
+	font-size: 23px;
+	padding-left:23px;
+}
+
+.date {
+	font-size: 10px;
+}
+
 .unfinished_form {
 	border: 1px solid #900;
 	width: 300px;

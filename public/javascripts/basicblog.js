@@ -1,7 +1,6 @@
 function highlight_incomplete_form(elt) {
-	jQuery(elt);
-	if (elt.text() == '') {
-      elt.parent().addClass('unfinished_form');
+	if ($(elt.target).val() == '') {
+      $(elt.target).parent().addClass('unfinished_form');
 	}
 }
 

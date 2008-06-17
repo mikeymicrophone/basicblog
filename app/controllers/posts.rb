@@ -38,7 +38,7 @@ class Posts < Application
     if @post.valid?
       render :show
     else
-      redirect :action => :new
+      redirect :new
     end
   end
 
