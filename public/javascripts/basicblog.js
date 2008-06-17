@@ -1,6 +1,7 @@
 function highlight_incomplete_form(elt) {
 	if ($(elt).val() == '') {
       $(elt).parent().addClass('unfinished_form');
+	  $(elt).parent().insertAfter('please add some text its not hard')
 	}
 }
 
@@ -12,7 +13,7 @@ $(document).ready(function() {
   $('.required').bind("blur", function(elt) {
     highlight_incomplete_form(elt.target);
   })
-  $('.required').bind("change", function(elt) {
+  $('.required').bind("focus", function(elt) {
 	remove_highlighting(elt.target);
   })
 })

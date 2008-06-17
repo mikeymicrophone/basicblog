@@ -1,10 +1,12 @@
 #months
   - months.each do |name,month|
     = link_to(name, url(:controller => "posts", :action => :month_of , :month => month))
+= link_to 'write a new post', '/posts/new'
 #posts
   - @posts.each do |p|
     .post 
       .title= p.title
+      .link= link_to('visit', "posts/#{p.id}")
       .date= p.created_at.strftime("%m/%y") if p.created_at
       .post_body= textilized(p)
     %hr
