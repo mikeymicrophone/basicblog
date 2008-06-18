@@ -20,6 +20,8 @@ class Post
       all(:created_at.gt => DateTime.civil(2008, month - 1, previous_month_end[month]), :created_at.lt => DateTime.civil(2008, month, previous_month_end[month + 1]))
     when 12
       all(:created_at.gt => DateTime.civil(2008, 11, 30), :created_at.lt => DateTime.civil(2009, 1))
+    else
+      []
     end
   end
 

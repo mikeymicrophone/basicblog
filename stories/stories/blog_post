@@ -1,0 +1,21 @@
+Story: Creating a post
+    As a user
+    I want to post to my blog
+    So that I can share information that would otherwise be void
+
+  Scenario: anonymous user
+    Given no blog posts in the system
+
+    When I create a blog post
+
+    Then the page should show the post's title
+    And the page should show the post's body
+
+  Scenario: cryptic user who doesn't title things
+
+    When I create an untitled post
+
+    Then I should see the new post page
+    And my post should not be saved
+    And my post should be in the body box
+    And the title box should be highlighted

@@ -16,10 +16,9 @@ class Posts < Application
   end
 
   def new
-    if params[:post]
+    @post = Post.new params[:post]
+    if params[:invalid]
       @message = "this post is incomplete and NOT SUITABLE FOR THIS BLOOOOOOGGGGGGGGG."
-    else
-      @post = Post.new
     end
     render
   end
@@ -38,7 +37,7 @@ class Posts < Application
     if @post.valid?
       render :show
     else
-      redirect :new
+      redirect url(:action => :new, :invalid => true)
     end
   end
 

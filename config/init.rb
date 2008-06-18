@@ -57,6 +57,7 @@ Gem.path.unshift(Merb.root / "gems")
 #dependency "RedCloth", "> 3.0"
 
 dependencies  "RedCloth", "merb_helpers", "merb-assets", "merb-haml", "dm-validations", "dm-timestamps"
+dependency "merb_stories" if Merb.environment == "test"
 # OR
 # dependencies "RedCloth" => "> 3.0", "ruby-aes-cext" => "= 1.0"
 Merb::BootLoader.after_app_loads do

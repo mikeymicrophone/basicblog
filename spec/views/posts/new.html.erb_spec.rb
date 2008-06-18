@@ -10,8 +10,4 @@ describe "posts/new" do
   it "should render a form for a post" do
     @body.should have_tag(:form).with_tag(:textarea).with_tag(:input)
   end
-  
-  it "should post the form when the submit button is pressed"
-  
-  
 end

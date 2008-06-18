@@ -35,6 +35,7 @@ describe Posts, "create action with valid params" do
     Post.should_receive(:create).and_return(@post)
     @post.should_receive(:valid?).and_return(true)
     dispatch_to(Posts, :create, :post => {:body => 'deer tick', :title => 'fantasy'}) do |controller|
+      controller.stub! :redirect
       controller.stub! :render
       # can we set an expectation that render will be called with :show, since we have already stubbed it?
     end
@@ -47,6 +48,7 @@ describe Posts, "create action with no title" do
     Posts.should_receive(:new)
     
     dispatch_to(Posts, :create, :post => {:body => 'handsome'}) do |controller|
+      controller.stub! :redirect
       controller.stub! :render
     end
   end  
