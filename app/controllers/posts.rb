@@ -37,7 +37,7 @@ class Posts < Application
     if @post.valid?
       render :show
     else
-      redirect url(:action => :new, :invalid => true)
+      redirect url(:action => :new, :invalid => true, :post => params[:post])
     end
   end
 
