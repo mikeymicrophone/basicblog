@@ -19,7 +19,7 @@ steps_for(:email) do
     @bobcatt.asks @freewheelers, 'where is the library at?'
   end
   Then("Mississippi should receive an email") do
-    @library_location = (Email.get(:sender_id => @bobcatt.id, :group => @freewheelers.id)).should_not be_nil
+    @library_location = (Email.first(:conditions => {:sender_id => @bobcatt.id, :group => @freewheelers.id})).should_not be_nil
   end
   Then("the email should contain Bobcatt's question") do
     @library_location.body.should contain("library")

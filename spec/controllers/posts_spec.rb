@@ -45,22 +45,13 @@ end
 
 describe Posts, "create action with no title" do
   it "should redirect to new if a title is absent" do
-    Posts.should_receive(:new)
-    
-    dispatch_to(Posts, :create, :post => {:body => 'handsome'}) do |controller|
-      controller.stub! :redirect
-      controller.stub! :render
-    end
+    dispatch_to(Posts, :create, :post => {:body => 'handsome'}).should redirect_to('/posts/new?post[body]=handsome&invalid=true')
   end  
 end
 
 describe Posts, "create action with no body" do
   it "should redirect to new if a body is absent" do
-    Posts.should_receive(:new)
-    
-    dispatch_to(Posts, :create, :post => {:title => 'answazi'}) do |controller|
-      controller.stub! :render
-    end
+    dispatch_to(Posts, :create, :post => {:title => 'answazi'}).should redirect_to('/posts/new?post[title]=answazi&invalid=true')
   end
   
 end
