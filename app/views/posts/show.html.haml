@@ -1,3 +1,23 @@
 .post
-	.title= @post.title
-	.content= textilized(@post)
+  .title= @post.title
+  .content= textilized(@post)
+  #comment_count= @post.comments.length.to_s
+  #comment_link= link_to('comment', '#')
+  
+  #comment_form{:style => 'display:none'}
+    - form_for(:comment, :action => url(:controller => :comments, :action => :create)) do
+      = text_control(:email)
+      email<br>
+      = text_control(:name)
+      name<br>
+      = text_area_control(:body)
+      comment<br>
+      = checkbox_control(:textile)
+      textile<br>
+      = hidden_control(:post_id, :value => @post.id)
+      = submit_button :comment, :id => 'comment_submit_button'
+      
+  #comments
+    - @post.comments.reverse.each do |c|
+      .comment= c.textile ? textiled(c.body) : c.body
+      %br

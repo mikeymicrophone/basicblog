@@ -3,14 +3,28 @@ class Post
   include DataMapper::Timestamp
   include DataMapper::Validate
   
-  property :title,      String#, :nullable => false
-  property :body,       Text#, :nullable => false
+  property :title,      String
+  property :body,       Text
   property :id,         Integer, :serial => true
   property :author_id,  Integer
   property :created_at,  DateTime
   
-    validates_present :title
-    validates_present :body
+  has n, :comments
+  
+  validates_present :title
+  validates_present :body
+
+  def most_recent_comment
+    comments.sort_by { |c| c.created_at }.last
+  end
+  
+  def recent_comment_stamp
+    if most_recent_comment
+      ' as of ' + most_recent_comment.created_at.strftime("%m/%d") 
+    else
+      ''
+    end
+  end
 
   def self.in_month(month)
     case month

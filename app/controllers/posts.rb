@@ -6,7 +6,14 @@ class Posts < Application
   end
 
   def show
-    @post = Post.get params[:id]
+    if params[:permalink]
+      @post = Post.first(:conditions => {:title.like => "%#{params[:title]}",
+        :created_at.gt => DateTime.civil(params[:year], params[:month], params[:day] - 1),
+        :created_at.lt => DateTime.civil(params[:year], params[:month], params[:day] + 1)})
+    else
+      @post = Post.get params[:id]
+    end
+    @comment = Comment.new
     render
   end
   

@@ -65,11 +65,11 @@ steps_for(:comment_on_post) do
       clicks_button 'comment'
     end
     Then("the comment should appear asynchronously") do
-      #not sure how to spec this yet
+      #not sure how to spec this yet - attempt below
       @controller.body.should contain @comment_body
     end
     Then("the comment field should be reset") do
-      @controller.body.should have_tag(:textarea, :id => 'comment_body').with_value('') #don't this this with_value method exists
+      @controller.body.should have_tag(:textarea, :id => 'comment_body').with_value('') #don't think this with_value method exists
     end
     
     When("I submit a comment with an email but no name or message") do

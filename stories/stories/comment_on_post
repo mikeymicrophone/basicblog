@@ -33,7 +33,7 @@ Story: Some story about commenting on posta
   Scenario: commenting from index
   
     Given a post
-    When I click the comment button
+    When I click the comment link
     Then I should be taken to the post's page
     And I should see a comment form
     And the focus of the cursor should be in the comment form
@@ -42,6 +42,7 @@ Story: Some story about commenting on posta
   
     Given a post
     And I am viewing the post's page
+    And I have filled out the comment form
     When I submit the comment form
     Then the comment should appear asynchronously
     And the comment field should be reset
