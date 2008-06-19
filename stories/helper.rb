@@ -3,6 +3,7 @@ require 'spec/rake/spectask'
 require File.join(File.dirname(__FILE__), "..", "spec", "spec_helper")
 require 'spec/mocks'
 require 'spec/story'
+require 'webrat'
 
 class Merb::Test::RspecStory
   # Include your custom helpers here
