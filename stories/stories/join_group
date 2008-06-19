@@ -1,0 +1,45 @@
+Story: Some story about joining a group
+
+  As a member
+  I want to join a group
+  So that I can stay informed about the group
+  
+  Scenario: an affiliated user begins registration
+  
+    Given a user named Sebastian
+    And no user named Frederick
+    And a group called MIT-2009
+    And Sebastian is a member of MIT-2009
+    And Frederick is a potential member of MIT-2009
+    When Sebastian sends Frederick an invite
+    And Frederick receives an email
+    And Frederick follows the link in the email
+    Then Frederick should be taken to a registration page
+    And Frederick should be identified as a potential member of MIT-2009
+    
+  Scenario: a new user is presented with the option to join lists
+  
+    Given no user named Ditmars
+    When Ditmars loads the registration page
+    Then he should be offered membership in groups
+    And he should be offered listserv options for the groups
+    
+  Scenario: a group member asks a question of the group
+  
+    Given a user named Melina
+    And a group called Fish
+    And Melina is a member of Fish
+    When Melina asks a question
+    And selects Fish to answer her question
+    Then an email should be sent to Fish
+    And the email should contain the question
+    
+  Scenario: a non-member wants to ask a question of a group
+  
+    Given a user named Georgie
+    And a group called Diplomats
+    And Georgie is not a member of Diplomats
+    When Georgie asks a question
+    And selects Diplomats to answer her question
+    Then no email should be sent to Diplomats
+    And Georgie should be directed to the group registration page for Diplomats
