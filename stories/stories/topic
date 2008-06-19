@@ -1,0 +1,53 @@
+Story: Some story about contributing to a topic
+
+  As a thinker
+  I want to write on the pages of the site
+  So that I can solidify my understanding and educate my peers
+  
+  Scenario: editing a topic, already logged in
+  
+    Given a user named Matthias
+    And Matthias is logged in
+    And Matthias is viewing a topic page
+    When Matthias clicks an edit link
+    Then he should be presented with a form for editing the topic
+    
+  Scenario: editing a topic, not logged in
+  
+    Given a user named Matthias
+    And Matthias is not logged in
+    And Matthias is viewing a topic page
+    When Matthias clicks an edit link
+    Then he should be presented with a form for logging in and editing the topic
+    
+  Scenario: editing a topic, not signed up
+  
+    Given no user named Gregory
+    And Gregory is viewing a topic page
+    When Gregory clicks an edit link
+    Then he should be presented with a form for signing up and editing the topic
+    
+  Scenario: commenting on a topic, logged in
+  
+    Given a user named Penelope
+    And Penelope is logged in
+    And Penelope is viewing a topic page
+    When Penelope clicks a comment link
+    Then she should be presented with a form for her comment
+
+  Scenario: commenting on a topic, not logged in
+  
+    Given a user named Richmond
+    And Richmond is not logged in
+    And Richmond is viewing a topic page
+    When Richmond clicks a comment link
+    Then he should be presented with a form for his comment and login credentials
+    
+  Scenario: commenting on a topic, not signed up
+  
+    Given no user named Salabatious
+    And Salabatious is viewing a topic page
+    When Salabatious clicks a comment link
+    Then he should be presented with a form for his comment and signup information
+    And he should be directed to the topic registration flow
+  

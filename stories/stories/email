@@ -1,0 +1,16 @@
+Story: Some story about email
+
+  As a group member
+  I want to receive email from my fellow group members
+  So that I might participate in their endeavors
+  
+  Scenario: group member receives question in email
+  
+    Given a user named Mississippi
+    And a user named Bobcatt
+    And a group called Freewheelers
+    And Mississippi is a member of Freewheelers
+    And Bobcatt is a member of Freewheelers
+    When Bobcatt asks a question of the Freewheelers group
+    Then Mississippi should receive an email
+    And the email should contain Bobcatt's question

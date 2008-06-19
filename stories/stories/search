@@ -1,0 +1,47 @@
+Story: Some story about incoming traffic from google
+
+  As an unregistered user
+  I want to find what I'm searching for
+  So that I choose to become a regular user of the site
+  
+  Scenario: I find what I searched for
+  
+    Given I search for a term found in a cw uri
+    When the topic page loads
+    Then I should find the information I wanted
+    And I should find ways to navigate the rest of the site
+    
+  Scenario: I don't find what I searched for
+    
+    Given I search for a term found in a cw uri
+    When the topic page loads
+    And it doesn't have the information I wanted
+    Then I should find other interesting information
+    And I should find ways to navigate the rest of the site
+    
+  Scenario: I find what I wanted on the home page
+    
+    Given I search for something
+    When the unlogged-in homepage loads
+    Then I should find what I wanted
+    And I should find ways to register
+    And I should find ways to navigate the rest of the site
+  
+  Scenario: I don't find what I wanted on the home page
+  
+    Given I search for something
+    When the unlogged-in homepage loads
+    And I don't find what I wanted
+    Then I should find other interesting information
+    And I should find ways to register
+    And I should find ways to navigate the rest of the site
+    
+  Scenario: I am logged in and I google a topic page
+  
+    Given I have a cookie from cw
+    And the cookie is valid
+    And the cookie claims that I am still logged in
+    When the topic page loads
+    Then it should include my personalized information
+    And it should include the information I wanted
+    And I should find ways to navigate the rest of the site

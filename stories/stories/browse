@@ -1,0 +1,16 @@
+Story: Some story about browsing
+
+  As a user
+  I want to find interesting information on each page and links to more
+  So that I continue to use the site
+  
+  Scenario: Keep them clicking
+
+    Given that the user is at a page they are not interested in
+    When the user is thinking about whether to leave the site
+    Then the user should see other items that are of interest
+    And they should lead elsewhere within cw
+    And they should include a mini profile
+    And they should include geographically proximate topics
+    And they should include recommended topics
+    And they should include correlated topics
