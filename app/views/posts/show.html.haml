@@ -4,8 +4,8 @@
   #comment_count= @post.comments.length.to_s
   #comment_link= link_to('comment', '#')
   
-  #comment_form{:style => 'display:none'}
-    - form_for(:comment, :action => url(:controller => :comments, :action => :create)) do
+  #comment_form_container{:style => 'display:none'}
+    - form_for(:comment, :action => url(:controller => :comments, :action => :create), :id => 'comment_form') do
       = text_control(:email)
       email<br>
       = text_control(:name)

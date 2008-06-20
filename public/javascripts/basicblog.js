@@ -10,11 +10,11 @@ function remove_highlighting(elt) {
 }
 
 function show_comment_form() {
-	$('#comment_form').show();
+	$('#comment_form_container').show();
 }
 
 function submit_comment() {
-	post('/comments/create?' + $('#comment_form').serialize)
+	$.post('/comments/create?' + $('#comment_form').serialize());
 	$('#comment_body').clear();
 	return false;
 }
@@ -29,7 +29,7 @@ $(document).ready(function() {
   $('#comment_link').bind("click", function() {
 	show_comment_form();
   })
-  $('#comment_submit_button').bind("click", function() {
+  $('#comment_form').bind("submit", function() {
 	submit_comment();
   })
 })
