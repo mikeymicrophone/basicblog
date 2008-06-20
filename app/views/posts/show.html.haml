@@ -20,5 +20,5 @@
       
   #comments
     - @post.comments.reverse.each do |c|
-      .comment= c.textile ? textiled(c.body) : c.body
+      .comment= c.textile ? textilized(c) : c.body
       %br

@@ -29,7 +29,12 @@ $(document).ready(function() {
   $('#comment_link').bind("click", function() {
 	show_comment_form();
   })
-  $('#comment_form').bind("submit", function() {
+  $('#comment_form').submit(function() {
 	submit_comment();
   })
+
+  if ($.query.get('comment')) {
+	show_comment_form();
+	$('#comment_body').focus();
+  }
 })

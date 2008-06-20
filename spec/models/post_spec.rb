@@ -28,6 +28,12 @@ describe Post do
   it "should have a timestamp" do
     @post.created_at.should_not be_nil
   end
+  
+  it "should have a permalink if it has a timestamp" do
+    if @post.created_at
+      @post.permalink.should_not be_nil
+    end
+  end
 
 end
 
