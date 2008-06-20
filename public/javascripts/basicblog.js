@@ -14,7 +14,7 @@ function show_comment_form() {
 }
 
 function submit_comment() {
-	$.post('/comments/create?' + $('#comment_form').serialize());
+	$('#comments').load('/comments/create', $('#comment_form').serialize())
 	$('#comment_body').clear();
 	return false;
 }
