@@ -40,6 +40,7 @@ class Posts < Application
   def create
     @post = Post.create :body => params[:post][:body], :title => params[:post][:title], :author_id => 1
     if @post.valid?
+      @comment = Comment.new
       render :show
     else
       redirect url(:action => :new, :invalid => true, :post => params[:post])

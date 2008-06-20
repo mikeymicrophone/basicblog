@@ -29,6 +29,12 @@ class Post
   def permalink
     '/posts/' + created_at.strftime("%Y/%m/%e/") + title[/\w+/] + '?permalink=true'
   end
+  
+  def slug(title)
+    title.gsub!("-"," ").gsub!(' ','-').
+    gsub!(/[\$\+\:\;\?\!\[\]\\\^\\\\/\'\\?\\*\"\\&\\|=#%\\(\\)\\{\\}\\@,\\.\\>\\<<>]/, '').
+    gsub("\\-\\-","-")
+  end
 
   def self.in_month(month)
     case month

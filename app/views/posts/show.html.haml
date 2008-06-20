@@ -1,3 +1,4 @@
+= link_to('index', '/posts')
 .post
   .title= @post.title
   .content= textilized(@post)
@@ -13,7 +14,7 @@
       name<br>
       = text_area_control(:body)
       comment<br>
-      = checkbox_control(:textile, :boolean => true)
+      = checkbox_control(:textile, :value => 1)
       textile<br>
       = hidden_control(:post_id, :value => @post.id)
       = submit_button :comment, :id => 'comment_submit_button'

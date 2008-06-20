@@ -27,7 +27,6 @@ class Comments < Application
 
   def create
     @comment = Comment.new(params[:comment])
-    Merb.logger.info "creating comment from #{request.xhr? ? 'xhr' : 'post'}"
     if @comment.save
       partial :comment, :with => @comment#redirect url(:comment, @comment)
     else

@@ -19,7 +19,7 @@ function submit_comment() {
 }
 
 function place_new_comment() {
-	$('#comments').prepend($('#comment_holder').html()).hide().show();
+	$('#comments').prepend($('#comment_holder').html());
 }
 
 $(document).ready(function() {
@@ -34,7 +34,7 @@ $(document).ready(function() {
   })
   $('#comment_form').bind("submit", submit_comment)
 
-  if ($.query.get('comment')) {
+  if (!!$.query.get('comment')) {
 	show_comment_form();
 	$('#comment_body').focus();
   }

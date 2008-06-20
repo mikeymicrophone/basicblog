@@ -1,3 +1,3 @@
 -# comment = @comment if @comment
-.comment= comment.textile == true ? textilized(comment) : comment.body
+.comment{:id => comment.id, :style => "visibility:visible"}= comment.textile == true ? textilized(comment) : comment.body
 %br

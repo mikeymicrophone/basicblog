@@ -10,5 +10,5 @@
       .date= p.created_at.strftime("%m/%y") if p.created_at
       .post_body= textilized(p)
       .comment_count= p.comments.length.to_s + ' comments' + p.recent_comment_stamp
-      .comment_link= link_to('comment', url(:post, p) + '&comment=true')
+      .comment_link= link_to('comment', url(:post, p) + '?comment=true')
     %hr
