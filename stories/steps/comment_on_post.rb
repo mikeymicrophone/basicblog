@@ -39,7 +39,7 @@ steps_for(:comment_on_post) do
     
     Then("I should see the datestamp of the most recent comment") do
       @recent_comment = Post.first(:conditions => {:title => @title}).comments.sort { |c| c.created_at }.last
-      @datestamp = @recent_comment.created_at.strftime("%m/%d")
+      @datestamp = @recent_comment.created_at.strftime("%m/%e")
       @controller.body.should contain(@datestamp)
     end
     

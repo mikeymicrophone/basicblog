@@ -7,9 +7,9 @@ class Posts < Application
 
   def show
     if params[:permalink]
-      @post = Post.first(:conditions => {:title.like => "%#{params[:title]}",
-        :created_at.gt => DateTime.civil(params[:year], params[:month], params[:day] - 1),
-        :created_at.lt => DateTime.civil(params[:year], params[:month], params[:day] + 1)})
+      @post = Post.first(:title.like => "%#{params[:title]}%",
+        :created_at.gt => DateTime.civil(params[:year].to_i, params[:month].to_i, params[:day].to_i - 1),
+        :created_at.lt => DateTime.civil(params[:year].to_i, params[:month].to_i, params[:day].to_i + 1))
     else
       @post = Post.get params[:id]
     end

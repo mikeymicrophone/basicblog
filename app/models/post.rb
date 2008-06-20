@@ -20,10 +20,14 @@ class Post
   
   def recent_comment_stamp
     if most_recent_comment
-      ' as of ' + most_recent_comment.created_at.strftime("%m/%d") 
+      ' as of ' + most_recent_comment.created_at.strftime("%m/%e") 
     else
       ''
     end
+  end
+  
+  def permalink
+    '/posts/' + created_at.strftime("%Y/%m/%e/") + title[/\w+/] + '?permalink=true'
   end
 
   def self.in_month(month)

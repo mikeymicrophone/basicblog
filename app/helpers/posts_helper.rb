@@ -1,8 +1,5 @@
 module Merb
     module PostsHelper
-      def textilized(post)
-        RedCloth.new(post.body).to_html unless post.body.nil?
-      end
       
       def months
         [['January', 1],
