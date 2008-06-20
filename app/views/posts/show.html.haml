@@ -13,12 +13,12 @@
       name<br>
       = text_area_control(:body)
       comment<br>
-      = checkbox_control(:textile)
+      = checkbox_control(:textile, :boolean => true)
       textile<br>
       = hidden_control(:post_id, :value => @post.id)
       = submit_button :comment, :id => 'comment_submit_button'
       
   #comments
-    - @post.comments.reverse.each do |c|
-      .comment= c.textile ? textilized(c) : c.body
-      %br
+    = partial 'comments/comment', :with => @post.comments.reverse, :as => 'comment'
+    
+  #comment_holder{:style => "display:none;"}

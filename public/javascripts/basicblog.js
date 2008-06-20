@@ -1,7 +1,6 @@
 function highlight_incomplete_form(elt) {
 	if ($(elt).val() == '') {
       $(elt).parent().addClass('unfinished_form');
-	  $(elt).parent().insertAfter('please add some text its not hard')
 	}
 }
 
@@ -14,9 +13,13 @@ function show_comment_form() {
 }
 
 function submit_comment() {
-	$('#comments').load('/comments/create', $('#comment_form').serialize())
-	$('#comment_body').clear();
+	$('#comment_holder').load('/comments/create', $('#comment_form').serialize(), place_new_comment()); // might be good alternative http://malsup.com/jquery/form/#api except I don't know if I can use it to prepend
+    $('#comment_body').clearFields();
 	return false;
+}
+
+function place_new_comment() {
+	$('#comments').prepend($('#comment_holder').html()).hide().show();
 }
 
 $(document).ready(function() {
@@ -29,9 +32,7 @@ $(document).ready(function() {
   $('#comment_link').bind("click", function() {
 	show_comment_form();
   })
-  $('#comment_form').submit(function() {
-	submit_comment();
-  })
+  $('#comment_form').bind("submit", submit_comment)
 
   if ($.query.get('comment')) {
 	show_comment_form();
