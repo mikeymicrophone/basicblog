@@ -13,6 +13,7 @@ Story: Some story about commenting on a post
   Scenario: commenting on a post
   
     Given a post
+    And I am at the post's page
     When I click the comment link
     Then I should see a comment form
     

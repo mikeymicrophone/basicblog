@@ -7,7 +7,7 @@
   #permalink= link_to('permalink', @post.permalink) if @post.created_at
   
   #comment_form_container{:style => 'display:none'}
-    - form_for(:comment, :action => url(:controller => :comments, :action => :create), :id => 'comment_form') do
+    - form_for(:comment, :action => url(:controller => :comments, :action => :create), :id => 'comment_form', :class => 'comment') do
       = text_control(:email)
       email<br>
       = text_control(:name)
