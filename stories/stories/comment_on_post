@@ -13,28 +13,28 @@ Story: Some story about commenting on a post
   Scenario: commenting on a post
   
     Given a post
-    And I am at the post's page
-    When I click the comment link
+    Given I am at the post's page
+    When I click the comment link from the post's page
     Then I should see a comment form
     
   Scenario: previewing how many comments
   
     Given a post
-    And some comments
+    And some comments on the post
     When I view the index page
     Then I should see the number of comments on the post
     
   Scenario: previewing age of comments
   
     Given a post
-    And some comments
+    And some comments on the post
     When I view the index page
     Then I should see the datestamp of the most recent comment
     
   Scenario: commenting from index
   
     Given a post
-    When I click the comment link
+    When I click the comment link from the index
     Then I should be taken to the post's page
     And I should see a comment form
     And the focus of the cursor should be in the comment form

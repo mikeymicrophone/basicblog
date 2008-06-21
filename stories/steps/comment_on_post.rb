@@ -15,9 +15,13 @@ steps_for(:comment_on_post) do
     Given("I am at the post's page") do
       @controller = get("/posts/#{Post.first(:title => 'qwantz').id}")
     end
-    
-    When("I click the comment link") do
+
+    When("I click the comment link from the post's page") do
       # run javascript function show_comment_form()
+    end
+    
+    When("I click the comment link from the index") do
+      @controller = get(url(:post, Post.first(:title => 'qwantz')) + '?comment=true')
     end
     
     Then("I should see a comment form") do
@@ -26,7 +30,7 @@ steps_for(:comment_on_post) do
     end
     
     Given("some comments on the post") do
-      Comment.create(:email => 'joseph@bigbigbank.com', :name => 'Big Joe', :body => 'T-Rex is so motivational!!')
+      Comment.create(:email => 'joseph@bigbigbank.com', :name => 'Big Joe', :body => 'T-Rex is so motivational!!', :post_id => Post.first(:title => 'qwantz').id)
       Comment.all.should_not be([])
     end
     
@@ -36,11 +40,13 @@ steps_for(:comment_on_post) do
     
     Then("I should see the number of comments on the post") do
       @comment_count = Post.first(:title => 'qwantz').comments.length
-      @controller.body.should have_tag(:div, :class => 'comment_count').with_content(@comment_count)      
+      @controller.body.should have_tag(:div, :class => 'comment_count') do
+        contain(@comment_count)
+      end
     end
     
     Then("I should see the datestamp of the most recent comment") do
-      @recent_comment = Post.first(:title => 'qwantz').comments.sort { |c| c.created_at }.last
+      @recent_comment = Post.first(:title => 'qwantz').comments.select { |c| c.created_at }.sort_by { |c| c.created_at }.last
       @datestamp = @recent_comment.created_at.strftime("%m/%e")
       @controller.body.should contain(@datestamp)
     end
@@ -61,55 +67,50 @@ steps_for(:comment_on_post) do
       @controller = get('/posts/1')
     end
     
+    Given("I have filled out the comment form") do
+      # not yet implemented
+    end
+    
     When("I submit the comment form") do
-      # fills_in 'email', :with => 'joseph@bigbigbank.com'
-      # fills_in 'name', :with => 'Big Joe'
-      # fills_in 'comment_body', :with => 'T-Rex is so motivational!!'
-      # clicks_button 'comment'
+      @controller = post('/comments/create', :post => {:email => 'joseph@bigbigbank.com', :name => 'Big Joe', :comment_body => 'T-Rex is so motivational!!'})
     end
     
     Then("the comment should appear asynchronously") do
       #not sure how to spec this yet - attempt below
-      @controller.body.should contain('T-Rex is so motivational!!')
+      @controller.body.should have_selector('T-Rex is so motivational!!')
     end
     
     Then("the comment field should be reset") do
-      @controller.body.should have_tag(:textarea, :id => 'comment_body').with_value('') #don't think this with_value method exists
+      # can this be tested without javascript?
+      @controller.body.should have_tag(:textarea, :id => 'comment_body')#.with_value('') (with_value doesn't exist)
     end
     
     When("I submit a comment with an email but no name or message") do
-      # fills_in 'email', :with => 'joseph@bigbigbank.com'
-      # clicks_button 'comment'
+      @controller = post('/comments/create', :post => {:email => 'joseph@bigbigbank.com'})
     end
     
     Then("the comment should be saved") do
-      @comment.should be_valid
+      # the action loads a div with the text of the comment
+      # for a comment with no text, it won't have any identifiable tags?
+      @controller.body.should have_tag(:div, :class => :comment)
     end
     
     When("I submit a comment with an email and a name and a message") do
-      # fills_in 'email', :with => 'joseph@bigbigbank.com'
-      # fills_in 'name', :with => 'Big Joe'
-      # fills_in 'comment_body', :with => 'T-Rex is so motivational!!'
-      # clicks_button 'comment'
+      @controller = post('/comments/create', :post => {:email => 'joseph@bigbigbank.com', :name => 'Big Joe', :comment_body => 'T-Rex is so motivational!!'})
     end
     
     When("I submit a comment with no email") do
-      # fills_in 'name', :with => 'Big Joe'
-      # fills_in 'comment_body', :with => 'T-Rex is so motivational!!'
-      # clicks_button 'comment'
+      @controller = post('/comments/create', :post => {:name => 'Big Joe', :comment_body => 'T-Rex is so motivational!!'})
     end
     
     Then("the comment should not be saved") do
-      @comment.should_not be_valid
+      @controller.body.should have_tag(:div, :class => :error) do
+        with_tag('<li>Email must not be blank </li>')
+      end
     end
     
     When("I submit a comment with textile enabled") do
-      @controller = post('/comments/create')
-      # fills_in 'email', :with => 'joseph@bigbigbank.com'
-      # fills_in 'name', :with => 'Big Joe'
-      # fills_in 'comment_body', :with => 'T-Rex is *so* motivational!!'
-      # checks_box 'textile'
-      # clicks_button 'comment'
+      @controller = post('/comments/create', :post => {:email => 'joseph@bigbigbank.com', :name => 'Big Joe', :comment_body => 'T-Rex is *so* motivational!!', :textile => 1})
     end
     
     Then("the comment should be displayed with textile markup") do
@@ -117,10 +118,7 @@ steps_for(:comment_on_post) do
     end
     
     When("I submit a comment with textile disabled") do
-      # fills_in 'email', :with => 'joseph@bigbigbank.com'
-      # fills_in 'name', :with => 'Big Joe'
-      # fills_in 'comment_body', :with => 'T-Rex is *so* motivational!!'
-      # clicks_button 'comment'
+      @controller = post('/comments/create', :post => {:email => 'joseph@bigbigbank.com', :name => 'Big Joe', :comment_body => 'T-Rex is *so* motivational!!', :textile => '0'})
     end
     
     Then("the comment should be displayed without textile markup") do
@@ -137,7 +135,9 @@ steps_for(:comment_on_post) do
     end
     
     Then("the most recent comment should be first") do
-      @recent_comment = Post.first(:title => 'qwantz').comments.sort { |c| c.created_at }.last
-      @controller.body.should have_tag(:div, :id => 'comments').with_tag(:div, :class => 'comment').with_content(@recent_comment.body)
+      @recent_comment = Post.first(:title => 'qwantz').comments.sort_by { |c| c.created_at }.last
+      @controller.body.should have_tag(:div, :id => 'comments') do
+        with_tag('<div class="comment">?</div>', @recent_comment.body)
+      end
     end
 end

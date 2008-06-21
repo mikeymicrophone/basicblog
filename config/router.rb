@@ -23,6 +23,7 @@ Merb.logger.info("Compiling routes...")
 Merb::Router.prepare do |r|
   # RESTful routes
   r.resources :posts
+  r.resources :comments
   r.match("/posts/:year/:month/:day/:title").to(:controller => 'posts', :action => 'show', :permalink => 'true')
 
   # This is the default route for /:controller/:action/:id
