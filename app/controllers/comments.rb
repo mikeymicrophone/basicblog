@@ -26,6 +26,7 @@ class Comments < Application
   end
 
   def create
+    #debugger
     @comment = Comment.new(params[:comment])
     if @comment.save
       partial :comment, :with => @comment#redirect url(:comment, @comment)

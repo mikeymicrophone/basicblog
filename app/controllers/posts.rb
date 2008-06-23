@@ -23,7 +23,7 @@ class Posts < Application
   end
 
   def new
-    @post = Post.new params[:post]
+    @post = Post.new(params[:post] ||= {})
     @message = "this post is incomplete and NOT SUITABLE FOR THIS BLOOOOOOGGGGGGGGG." if params[:invalid]
     render
   end
