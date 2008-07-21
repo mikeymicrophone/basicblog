@@ -1,0 +1,1 @@
+<div id="instructions"><strong>Current instructions:</strong> <span id="instruction_field"></span></div>

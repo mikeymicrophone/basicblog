@@ -1,0 +1,12 @@
+#formtip {
+	display: none;
+	position: absolute;
+	background-color: #eee;
+	border: 1px solid black;
+	padding: 5px;
+	width: 15em;
+}
+#formtip .formtip-arrow {
+	position: absolute;
+	left: -8px;
+}

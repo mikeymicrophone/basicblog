@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>searchField Demo</title>
+		<script type="text/javascript" src="jquery.js"></script>
+		<script src="jquery.searchField.js" type="text/javascript"></script>
+		<script type="text/javascript">
+		$(function(){
+			$('input').searchField();
+		});
+		</script>
+		<style type="text/css">
+		.watermark { color: gray; }
+		</style>
+	</head>
+	
+	<body>
+		<h1>searchField Demo</h1>
+		<p>
+			<label for="plain">Plain Example</label>
+			<input id="plain" title="Search This Site" />
+		</p>
+		<p>
+			<label for="inital">With Initial Value</label>
+			<input id="inital" title="Search Other Site" value="Initial Value" />
+		</p>
+		<p>
+			<label for="password">Password Field</label>
+			<input id="password" type="password" title="Your password here" />
+		</p>
+	</body>
+</html>
+

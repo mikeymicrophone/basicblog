@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<lumine-map table="tests" class="juice.Tests">
+	<id name="id" column="id">
+		<generator class="default" />
+	</id>
+	<property name="title" column="title" type="varchar" crypt="false"/>
+	<property name="category" column="category" type="varchar" crypt="false"/>
+	<property name="code" column="code" type="text" crypt="false"/>
+	<property name="template" column="template" type="text" crypt="false"/>
+	<property name="enabled" column="enabled" type="tinyint" crypt="false"/>
+	<property name="createdate" column="createdate" type="timestamp" crypt="false"/>
+</lumine-map>

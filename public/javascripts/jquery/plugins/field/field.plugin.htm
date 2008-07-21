@@ -1,0 +1,598 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>jQuery Field Plug-in</title>
+	<script type="text/javascript" src="./jquery-1.2.1.js"></script>
+
+	<!--// load jQuery Plug-ins //-->
+	<script type="text/javascript" src="./jquery.field.js"></script>
+
+	<script type="text/javascript">
+	var bIsFirebugReady = (!!window.console && !!window.console.log);
+
+	$(document).ready(
+		function (){
+			// update the plug-in version
+			$("#idPluginVersion").text($.Field.version);
+
+			// set the limit selections
+			setLimitSelection();
+
+			// create the checkbox range selector, with a callback function
+			$('input[@name="chkRange"]').createCheckboxRange(function(bChecked){
+				// set the background color on the label
+				$("label[@for=" + this.id + "]").css("background-color", (bChecked) ? "#ffcccc" : "");
+			});
+
+			/* 
+				make the text fields in the frmNavigation box auto-advance when their maxlength
+				values are reached
+			 */
+			$("#frmNavigation").autoAdvance();
+
+			// create a global selector
+			window.oSelector = $("#selector");
+		}
+	);
+
+	function getValue(){
+		// get the current selector
+		var selector = oSelector.getValue();
+
+		// display the value
+		alert($(selector).getValue());
+	}
+
+	function setValue(){
+		// get the current selector
+		var selector = oSelector.getValue();
+		var el = $(selector);
+
+		// prompt the user for a new value
+		var sValue = prompt(
+			"Enter the value for " + selector + ":\n(NOTE: For select, radio and checkboxes enter number 1-5)",
+			el.getValue()
+		);
+
+		// display the value
+		el.setValue(sValue);
+	}
+
+	function setLimitSelection(){
+		$('input[@name="chkLimit"]').limitSelection(
+			{
+				// number of items to limit to
+				limit: 3,
+				// on error, do this
+				onfailure: function (n){
+					$("#idCheckboxMsg").html(
+						"You can not select more than " + n + " items."
+					);
+					return false;
+				},
+				// on success, do this
+				onsuccess: function (n){
+					$("#idCheckboxMsg").html("");
+					return false;
+				}
+			}
+		);
+		$('select[@name="selLimit"]').limitSelection(2);
+	}
+
+	function setByArray(){
+		$('select[@name="select_multiple"]').fieldArray([1,3,5]);
+	}
+
+	function getByArray(){
+		alert($('select[@name="select_multiple"]').fieldArray());
+	}
+
+	var bRunOnce = false;
+
+	function formHashGet(){
+		if( !bIsFirebugReady ) return alert("You need Firebug installed to view the results!");
+
+		if( bRunOnce == false ) alert("Check the Firebug console for results.");
+
+		// log results
+		console.log(
+			// run the formHash() function
+			$("#frmTest").formHash()
+		);
+
+		bRunOnce = true;
+	}
+
+	function formHashSet(){
+		// set the values in the form
+		$("#frmTest").formHash(
+			{
+				"input_text": "Dan G. Switzer, II",
+				"input_password": "my password",
+				"input_hidden": "my hidden value",
+				"input_radio": "5",
+				"input_checkbox": "2,4",
+				"select_one": "2",
+				"select_multiple": "2,3,4",
+				"textarea_input": "Here's some text for my text box!!!!",
+				"input_button": "Button!",
+				"input_submit": "Submit!",
+				"input_reset": "Reset!"
+			}
+		);
+	}
+	</script>
+
+	<style type="text/css">
+		#testForm {
+			width: 800px;
+		}
+
+		code {
+			background-color: #e0e0e0;
+		}
+
+		#formContent p {
+			clear: both;
+			min-height: 20px;
+		}
+
+		#formContent code {
+			width: 270px;
+			float: left;
+			background-color: #ffffff;
+		}
+
+		#idCheckboxMsg{
+			color: red;
+			font-weight: bold;
+		}
+	</style>
+
+</head>
+<body>
+
+<h1>
+	jQuery Field Plug-in (v<span id="idPluginVersion">0.7</span>)
+</h1>
+
+<p>
+	This plugin greatly expands the ability to retrieve and set values in forms beyond
+	jQuery's standard <code>val()</code> method (and Mike Alsup's Form Plug-in's
+	<code>fieldArray()</code> method) by allowing you to interact with all types of
+	form field elements (except <code>input[@type="file"]</code>, which is a
+	read-only element.) It works the same way for text elements as it does for
+	radio, checkbox and select elements.
+</p>
+
+<p>
+	The plug-in was built on the concept that you want to manipulate the fields
+	like their traditional variables. Selectors should be written to query a specific
+	field object (i.e. elements that would be linked together via a common name
+	attribute, for example <code>$("input[@name='myRadioButton']")</code>.)
+</p>
+
+<p>
+	Elements that return multiple values are either separated by a comma or
+	returned as an array based on which methods you invoke.
+</p>
+
+<p>
+	For elements that allow more than one option to be select (select and
+	checkbox 	elements) you can specify a comma delimited list or an array of
+	values to mark multiple options as being selected.
+</p>
+
+<h2>
+	<a name="download">Download</a>
+</h2>
+
+<p>
+	Download the plug-in:
+	<br />
+	<a href="./jquery.field.js">jquery.field.js</a>
+	<br />
+	<a href="./jquery.field.min.js">jquery.field.min.js</a>
+</p>
+
+<h2>
+	<a name="examples">Interactive Examples</a>
+</h2>
+
+<p>
+	Choice a selector below and click the getValue() or setValue() buttons to test the functionality
+	on those field elements.
+</p>
+
+<p>
+	jQuery selector:
+	<select id="selector">
+		<option value='input[@name="input_text"]'>input[@type="text"]</option>
+		<option value='input[@name="input_password"]'>input[@type="password"]</option>
+		<option value='input[@name="input_hidden"]'>input[@type="hidden"]</option>
+		<option value='input[@name="input_radio"]'>input[@type="radio"]</option>
+		<option value='input[@name="input_checkbox"]'>input[@type="checkbox"]</option>
+		<option value='select[@name="select_one"]'>select[@type="select-one"]</option>
+		<option value='select[@name="select_multiple"]'>select[@type="select-multiple"]</option>
+		<option value='textarea[@name="textarea_input"]'>textarea</option>
+		<option value='input[@name="input_button"]'>input[@type="button"]</option>
+		<option value='input[@name="input_submit"]'>input[@type="submit"]</option>
+		<option value='input[@name="input_reset"]'>input[@type="reset"]</option>
+	</select>
+	<input type="button" value="getValue()" onclick="getValue()" />
+	<input type="button" value="setValue()" onclick="setValue()" />
+	<br />
+	<input type="button" value="getByArray(select[@name='select_multiple'])" onclick="getByArray()" />
+	<input type="button" value="setByArray(select[@name='select_multiple'])" onclick="setByArray()" />
+	<br />
+	<input type="button" value='$("#frmTest").formHash()' onclick="formHashGet()" />
+	<input type="button" value='$("#frmTest").formHash({ ... hash table ... })' onclick="formHashSet()" />
+	<input type="button" value="Return Hash As String" onclick="$.Field.setDefaults({useArray: false});" />
+	<input type="button" value="Return Hash As Array" onclick="$.Field.setDefaults({useArray: true});" />
+</p>
+
+<form action="" method="post" id="frmTest" onsubmit="return false;">
+	<fieldset id="testForm">
+		<legend>Field Plug-in Test</legend>
+		<div id="formContent">
+
+			<p>
+				<code>input[@type="text"]</code>
+				<input type="text" name="input_text" value="text field" />
+			</p>
+
+			<p>
+				<code>input[@type="password"]</code>
+				<input type="password" name="input_password" value="password" />
+			</p>
+
+			<p>
+				<code>input[@type="hidden"]</code>
+				<input type="hidden" name="input_hidden" value="I'm a hidden field hidden" />
+			</p>
+
+			<p>
+				<code>input[@type="radio"]</code>
+				<input type="radio" name="input_radio" id="input_radio_1" value="1" />
+				<label for="input_radio_1">Option 1</label>
+				<input type="radio" name="input_radio" id="input_radio_2" value="2" />
+				<label for="input_radio_2">Option 2</label>
+				<input type="radio" name="input_radio" id="input_radio_3" value="3" />
+				<label for="input_radio_3">Option 3</label>
+				<input type="radio" name="input_radio" id="input_radio_4" value="4" />
+				<label for="input_radio_4">Option 4</label>
+				<input type="radio" name="input_radio" id="input_radio_5" value="5" />
+				<label for="input_radio_5">Option 5</label>
+			</p>
+
+			<p>
+				<code>input[@type="checkbox"]</code>
+				<input type="checkbox" name="input_checkbox" id="input_checkbox_1" value="1" />
+				<label for="input_checkbox_1">Option 1</label>
+				<input type="checkbox" name="input_checkbox" id="input_checkbox_2" value="2" />
+				<label for="input_checkbox_2">Option 2</label>
+				<input type="checkbox" name="input_checkbox" id="input_checkbox_3" value="3" />
+				<label for="input_checkbox_3">Option 3</label>
+				<input type="checkbox" name="input_checkbox" id="input_checkbox_4" value="4" />
+				<label for="input_checkbox_4">Option 4</label>
+				<input type="checkbox" name="input_checkbox" id="input_checkbox_5" value="5" />
+				<label for="input_checkbox_5">Option 5</label>
+			</p>
+
+			<p>
+				<code>select[@type="select-one"]</code>
+				<select name="select_one">
+					<option value=""></option>
+					<option value="1">Option Value: 1</option>
+					<option value="2">Option Value: 2</option>
+					<option value="3">Option Value: 3</option>
+					<option value="4">Option Value: 4</option>
+					<option value="5">Option Value: 5</option>
+				</select>
+			</p>
+
+			<p>
+				<code>select[@type="select-multiple"]</code>
+				<select name="select_multiple" multiple="true" size="5">
+					<option value="1">Option Value: 1</option>
+					<option value="2">Option Value: 2</option>
+					<option value="3">Option Value: 3</option>
+					<option value="4">Option Value: 4</option>
+					<option value="5">Option Value: 5</option>
+				</select>
+			</p>
+
+			<p>
+				<code>textarea</code>
+				<textarea name="textarea_input" cols="40" rows="8">Here is some text!</textarea>
+			</p>
+
+			<p>
+				<code>input[@type="button"]</code>
+				<input type="button" name="input_button" value="Button" />
+			</p>
+
+			<p>
+				<code>input[@type="submit"]</code>
+				<input type="submit" name="input_submit" value="Submit" />
+			</p>
+
+			<p>
+				<code>input[@type="reset"]</code>
+				<input type="reset" name="input_reset" value="Reset" />
+			</p>
+
+		</div>
+	</fieldset>
+</form>
+
+<form action="" method="post" id="frmLimitSelection" onsubmit="return false;">
+	<fieldset>
+		<legend>$.limitSelection() Examples</legend>
+		<div id="formContent">
+
+			<div>
+				You can not select more than 3 of the following items:
+				<br />
+				<input type="checkbox" name="chkLimit" id="chkLimit_1" value="1" />
+				<label for="chkLimit_1">Option 1</label>
+				<input type="checkbox" name="chkLimit" id="chkLimit_2" value="2" />
+				<label for="chkLimit_2">Option 2</label>
+				<input type="checkbox" name="chkLimit" id="chkLimit_3" value="3" />
+				<label for="chkLimit_3">Option 3</label>
+				<input type="checkbox" name="chkLimit" id="chkLimit_4" value="4" />
+				<label for="chkLimit_4">Option 4</label>
+				<input type="checkbox" name="chkLimit" id="chkLimit_5" value="5" />
+				<label for="chkLimit_5">Option 5</label>
+			</div>
+
+			<div id="idCheckboxMsg"></div>
+
+			<div style="margin-top: 10px;">
+				You can only select 2 options from the following:
+				<br />
+				<select name="selLimit" multiple="true" size="5">
+					<option value="1">Option Value: 1</option>
+					<option value="2">Option Value: 2</option>
+					<option value="3">Option Value: 3</option>
+					<option value="4">Option Value: 4</option>
+					<option value="5">Option Value: 5</option>
+				</select>
+				<p>
+					<strong>NOTE:</strong>
+					If a user has selected more than desired number of selections
+					the first X number of items in the option array will be selected.
+					While not ideal, there's no good way to track users who selected
+					multiple options via a click-drag or [SHIFT]+click.
+				</p>
+			</div>
+
+		</div>
+	</fieldset>
+</form>
+
+<form action="" method="post" id="frmCreateCheckboxRange" onsubmit="return false;">
+	<fieldset>
+		<legend>$.createCheckboxRange() Examples</legend>
+		<div id="formContent">
+
+			<p>
+				The createCheckboxRange() allows you to create a Gmail-like checkbox
+				range selector. By clicking on a checkbox element and then <kbd>[SHIFT]</kbd>
+				clicking on an additional checkbox element, the entire range of checkbox
+				elements between the first and second elements clicked with be checked
+				or unchecked (based upon the status of the first checkbox clicked.)
+				A callback function is used to highlight the &lt;label&gt; when the
+				status of the elements "checked" status changes.
+			</p>
+
+			<p>
+				<input type="checkbox" name="chkRange" id="chkRange_1" value="1" />
+				<label for="chkRange_1">Option 1</label>
+				<br />
+				<input type="checkbox" name="chkRange" id="chkRange_2" value="2" />
+				<label for="chkRange_2">Option 2</label>
+				<br />
+				<input type="checkbox" name="chkRange" id="chkRange_3" value="3" />
+				<label for="chkRange_3">Option 3</label>
+				<br />
+				<input type="checkbox" name="chkRange" id="chkRange_4" value="4" />
+				<label for="chkRange_4">Option 4</label>
+				<br />
+				<input type="checkbox" name="chkRange" id="chkRange_5" value="5" />
+				<label for="chkRange_5">Option 5</label>
+			</p>
+			
+			<p>
+				You can change the default key binding by changing the 
+				<samp>checkboxRangeKeyBinding</samp> default setting using
+				either the <samp>$.Field.setDefaults()</samp> method or with
+				the command:<br />
+				
+				<samp><a href="javascript:$.Field.setProperty('checkboxRangeKeyBinding', 'ctrlKey');">$.Field.setProperty("checkboxRangeKeyBinding", "ctrlKey");</a></samp>
+				(click to change behavior.)
+			</p>
+		</div>
+	</fieldset>
+</form>
+
+<form action="" method="post" id="frmNavigation" onsubmit="return false;">
+	<fieldset>
+		<legend>Field Navigation Methods</legend>
+		<div id="formContent">
+
+			<p>
+				The Field plug-in contains several methods that will help you
+				automatically navigate to the next form element. jQuery honors
+				the tabIndex of your form elements (within the form object itself.)
+			</p>
+
+			<p>
+				This example shows how the tabIndex is honored within the parent form
+				object. Type in a single character to auto-advance to the next field
+				in the tabIndex (or use the [TAB] key to view the native behavior.)
+			</p>
+
+			<p>
+				<label for="tab_1">tabIndex 1:</label>
+				<input type="text" name="tab_1" id="tab_1" value="" size="1" maxlength="1" tabindex="1" />
+				<label for="tab_3">tabIndex 3:</label>
+				<input type="text" name="tab_3" id="tab_3" value="" size="1" maxlength="1" tabindex="3" />
+				<label for="tab_2">tabIndex 2:</label>
+				<input type="text" name="tab_2" id="tab_2" value="" size="1" maxlength="1" tabindex="2" />
+				<label for="tab_4">tabIndex 4:</label>
+				<input type="text" name="tab_4" id="tab_4" value="" size="1" maxlength="1" tabindex="4" />
+				<label for="tab_6">tabIndex 6:</label>
+				<input type="text" name="tab_6" id="tab_6" value="" size="1" maxlength="1" tabindex="6" />
+				<label for="tab_5">tabIndex 5:</label>
+				<input type="text" name="tab_5" id="tab_5" value="" size="1" maxlength="1" tabindex="5" />
+				<label for="tab_7">tabIndex 7:</label>
+				<input type="text" name="tab_7" id="tab_7" value="" size="1" maxlength="1" tabindex="7" />
+			</p>
+
+			<p>
+				The below examples show off how you can you can easily configure
+				a field set to move from one element to the next when the maxlength
+				of characters has been reached.
+			</p>
+
+			<p>
+				<label for="phone_area">Phone:</label>
+				(<input type="text" name="phone_area" id="phone_area" value="" size="3" maxlength="3" />)
+				<input type="text" name="phone_prefix" value="" size="3" maxlength="3" />
+				-
+				<input type="text" name="phone_suffix" value="" size="4" maxlength="4" />
+			</p>
+
+		</div>
+	</fieldset>
+</form>
+
+
+<h2>
+	<a name="syntax">Syntax Examples</a>
+</h2>
+
+<ul>
+	<li>
+		<code>$(&quot;input[@name=&#039;users&#039;]&quot;).fieldArray();</code><br />
+		Returns an array of all values selected or entered for the selector. If the selector was a checkbox or select element, the array would contain the value of each item selected/checked.
+	</li>
+
+	<li>
+		<code>$(&quot;input[@name=&#039;users&#039;]&quot;).fieldArray([&quot;dan&quot;, &quot;joern&quot;, &quot;karl&quot;, &quot;john&quot;]);</code><br />
+		Sets the value of the field to "dan,joern,karl,john". If the selector was a checkbox or select element, then the options with the values of "dan", "joern", "karl" and "john" would be selected--all other options would be unselected.
+	</li>
+
+	<li>
+		<code>$(&quot;input[@name=&#039;users&#039;]&quot;).getValue();</code><br />
+		Returns a comma delimited string of all values selected or entered for the selector. If the selector was a checkbox or select element, the string would contain the value of each item selected/checked as a separate item in the list.
+	</li>
+
+	<li>
+		<code>$(&quot;input[@name=&#039;users&#039;]&quot;).setValue(&quot;dan,joern,karl,john&quot;);</code><br />
+		Sets the value of the field to "dan,joern,karl,john". If the selector was a checkbox or select element, then the options with the	values of "dan", "joern", "karl" and "john" would be selected--all other options would be unselected.
+	</li>
+
+	<li>
+		<code>$(&quot;#formName&quot;).formHash();</code><br />
+		Returns a hash map of all the form fields and their values.
+	</li>
+
+	<li>
+		<code>$(&quot;#formName&quot;).formHash({&quot;name&quot;: &quot;Dan G. Switzer, II&quot;, &quot;state&quot;: &quot;OH&quot;});</code><br />
+		Returns the jQuery chain and sets the fields "name" and "state" with the values "Dan G. Switzer, II" and "OH" respectively.
+	</li>
+
+	<li>
+		<code>$(&quot;input:checkbox&quot;).limitSelection(3);</code><br />
+		<code>$(&quot;input:checkbox&quot;).limitSelection({limit: 3});</code><br />
+		Limits the user from being able to select more than 3 items in a checkbox/select element.
+		Once the user selects more than 3 items, an error alert() message is displayed.
+	</li>
+
+	<li>
+		<code>$(&quot;input:checkbox&quot;).limitSelection(3, {onsuccess: successCallback, onfailure: errorCallback});</code><br />
+		<code>$(&quot;input:checkbox&quot;).limitSelection({limit: 3, onsuccess: successCallback, onfailure: errorCallback});</code><br />
+		Limits the user from being able to select more than 3 items in a checkbox/select element.
+		If 3 items or less are selected, the successCallback is executed. If more than
+		3 items is selected, the errorCallback is executed.
+	</li>
+
+	<li>
+		<code>$(&quot;input:checkbox&quot;).createCheckboxRange();</code><br />
+		The createCheckboxRange() allows you to create a Gmail-like checkbox
+		range selector. By clicking on a checkbox element and then <kbd>[SHIFT]</kbd>
+		clicking on an additional checkbox element, the entire range of checkbox
+		elements between the first and second elements clicked with be checked
+		or unchecked (based upon the status of the first checkbox clicked.)
+	</li>
+
+	<li>
+		<code>$(&quot;input:checkbox&quot;).createCheckboxRange(callback);</code><br />
+		Triggers the callback function to run each time the checked status of a field
+		changes. This allows you to attach behaviors--such as highlighting the 
+		checkbox's row. This callback function's "this" reference is to the
+		jQuery object who's status was changed. An single argument is passed
+		that's a boolean indicating whether or not the field is checked or not.
+	</li>
+
+	<li>
+		<code>$(&quot;#formName&quot;).autoAdvance();</code>*<br />
+		The autoAdvance() will search through the matching elements in the selector
+		for any text-based input fields. It will then apply an onkeyup event that
+		will take the user to the next field in the tabIndex (within the context of
+		the form) when the maxlength value of the field has been reached.
+	</li>
+
+	<li>
+		<code>$(&quot;#formName&quot;).autoAdvance(callback);</code>*<br />
+		Automatic advances to next field and triggers the callback function on the 
+		field the user left. This callback function's "this" reference is to the
+		jQuery object who's field your leaving. An single argument is passed
+		that's a reference to the field that's being moved to.
+	</li>
+
+	<li>
+		<code>$(&quot;input[@name=&#039;users&#039;]&quot;).moveNext();</code>*<br />
+		This would move the focus to the next field in the tabIndex array from
+		the "users" field. If the next tabItem is outside of the form's context,
+		the first element in the form will be selected.
+	</li>
+
+	<li>
+		<code>$(&quot;input[@name=&#039;users&#039;]&quot;).movePrev();</code>*<br />
+		This would move the focus to the previous field in the tabIndex array from
+		the "users" field. If the previous tabItem is outside of the form's context,
+		the last element in the form will be selected.
+	</li>
+
+	<li>
+		<code>$(&quot;input[@name=&#039;users&#039;]&quot;).moveIndex(3);</code>*<br />
+		This would move the focus to the third element in the tabIndex array. If the
+		value "3" is outside the tabIndex array for the current form, then the
+		last field would be selected.
+	</li>
+
+	<li>
+		<code>$(&quot;input[@name=&#039;users&#039;]&quot;).getTabIndex();</code>*<br />
+		This returns the tabIndex for the current field as it relates to the parent
+		form object.
+	</li>
+</ul>
+
+<blockquote>
+	<p>
+		* The tabIndex navigation methods attempt to follow the spec for tabbing through
+		elements. This means that elements that have a specified tabIndex take priority
+		over elements that do not specify an index. Disabled items are skipped altogether.
+		The major exception is that the methods will only move within the parent form
+		object.
+	</p>
+</blockquote>
+
+
+</body>
+</html>

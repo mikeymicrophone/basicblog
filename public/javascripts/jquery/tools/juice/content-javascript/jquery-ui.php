@@ -1,0 +1,17 @@
+<!-- jQuery UI -->
+	<script src="../../ui/ui.base.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../ui/ui.mouse.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../ui/ui.draggable.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../ui/ui.draggable.ext.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../ui/ui.droppable.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../ui/ui.droppable.ext.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../ui/ui.resizable.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../ui/ui.resizable.ext.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../ui/ui.sortable.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../ui/ui.sortable.ext.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../ui/ui.tabs.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../ui/ui.tabs.ext.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../ui/ui.dialog.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../ui/ui.slider.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../ui/ui.accordion.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../ui/datepicker/core/ui.datepicker.js" type="text/javascript" charset="utf-8"></script>

@@ -1,0 +1,86 @@
+<style>
+  table.sortable_table {
+    border: 1px solid #000;
+    border-collapse: collapse;
+  }
+  
+  table.sortable_table th {
+    border-bottom: 1px solid #ccc;
+  }
+  
+  table.sortable_table th, table.sortable_table td {
+    padding: 5px;
+  }
+  
+  table.sortable_table tr.even {
+    background-color: #fcc;
+  }
+  
+  table.sortable_table tr.odd {
+    background-color: #ffc;
+  }
+  
+  div.tab_container {
+    margin-top: 10px;
+  }
+  
+  div.tabs-container {
+    width: 300px;
+    border-left: 1px solid #97a5b0;
+    border-right: 1px solid #97a5b0;    
+    border-bottom: 1px solid #97a5b0;    
+  }
+</style>
+<%= stylesheet_link_tag "jquery.tabs.css" %>
+
+<% sortable_table :sort_class_asc => "ascending", :sort_class_desc => "descending", 
+    :striping_row_class => ["even", "odd"], :stripe_rows_on_start_up => true do %>
+  <thead>
+    <tr>
+      <th>Col 1</th>
+      <th>Col 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>jQuery 1.0</td>
+      <td>$100</td>
+    </tr>
+    <tr>
+      <td>jQuery 1.1</td>
+      <td>$59</td>
+    </tr>
+    <tr>
+      <td>jQuery 1.1.1</td>
+      <td>$68</td>
+    </tr>    
+    <tr>
+      <td>jQuery 1.1.2</td>
+      <td>$8</td>
+    </tr>    
+  </tbody>
+<% end %>
+
+<% tab_container "my_container", [["fragment-1", "One"], ["fragment-2", "Two"], ["fragment-3", "Three"]], :fx_slide => true, :start => 2 do %>
+  <% tab_contents "fragment-1" do %>
+    X
+  <% end %>
+  <% tab_contents "fragment-2" do %>
+    Y
+  <% end %>
+  <% tab_contents "fragment-3" do %>
+    Z
+  <% end %>
+<% end %>
+
+<% tab_container "my_container", [["second-1", "Single"], ["second-2", "Double"], ["second-3", "Triple"]], :fx_fade => true, :start => 3 do %>
+  <% tab_contents "second-1" do %>
+    X
+  <% end %>
+  <% tab_contents "second-2" do %>
+    Y
+  <% end %>
+  <% tab_contents "second-3" do %>
+    Z
+  <% end %>
+<% end %>

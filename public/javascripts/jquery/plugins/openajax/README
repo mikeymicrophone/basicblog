@@ -1,0 +1,12 @@
+jQuery OpenAjax Plugin
+
+By John Resig
+
+Include this plugin in a page to hook jQuery into the OpenAjax platform.
+For example:
+  <script src="jquery.js"></script>
+  <script src="openajax.js"></script>
+
+This plugin was built such that jQuery could pass the Interoperability tests
+located here:
+http://www.openajax.org/member/wiki/InteropFest_2007_March

@@ -1,0 +1,2 @@
+class RailsDemoController < ApplicationController
+end

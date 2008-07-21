@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+	
+<html>
+	<head>
+		<title>jScrollPane</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<style type="text/css">
+			body {
+				font-family: Arial, Helvetica, sans-serif;
+				font-size: 80%;
+			}
+			.holder {
+				float: left;
+				margin: 10px;
+			}
+			.scroll-pane {
+				width: 200px;
+				overflow: auto;
+				background: #ccc;
+				float: left;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>jScrollPane</h1>
+		<p id="intro">
+			jScrollPane is a <a href="http://www.jquery.com/">jquery</a> plugin which allows you to replace the 
+			browsers default vertical scrollbars on	any block level element with an <em>overflow:auto</em> style. 
+			You can easily control the apperance of	the custom scrollbars using simple CSS.
+		</p>
+		<p>
+			jScrollPane is crossbrowser, working on all browsers that support jquery and it also  
+			degrades gracefully. If a user's browser doesn't support jQuery or has JavaScript turned off then 
+			they will see the browsers default scrollbars. If the 
+			<a href="http://jquery.com/plugins/project/mousewheel">mouse wheel plugin</a> is 
+			included in the page then the scroll panes will respond to mouse wheel events as well.
+		</p>
+		<p>
+			jScrollPane is built on top of the <a href="http://www.jquery.com/">awesome jQuery library</a> and
+			utilises the <a href="http://jquery.com/plugins/project/dimensions">dimensions
+			plugin</a> and (optionally) the <a href="http://jquery.com/plugins/project/mousewheel">
+			mouse wheel plugin</a>.
+		</p>
+		<h2>Examples</h2>
+		<p>
+			There are a number of different examples of different ways you can use jScrollPane:
+		</p>
+		<ul>
+			<li><a href="basic.html">Basic scrollbars</a></li>
+			<li><a href="examples.html">OS style scrollbars</a></li>
+			<li><a href="scrollTo.html">scrollTo functionality</a></li>
+			<li><a href="ajax_example.html">example of loading content into scroll pane using AJAX</a></li>
+			<li><a href="fullBodyScroll.html">fullpage scroll and nested scrollpanes</a></li>
+			<li><a href="scrollToSpeed.html">scrollTo functionality with different speeds</a></li>
+			<li><a href="textSizeChange.html">using jScrollPane with jQEm so it works even when the user changes their text size in the browser</a></li>
+		</ul>
+		<h2>Real world examples</h2>
+		<p>
+			Here are some examples of jScrollPane being used in the real world - they demonstrate how
+			varied the scroll bars you can create can be.
+		</p>
+		<ul>
+			<li>In the Flatline Tignes <a href="http://www.flatline-tignes.com/store/details/14">snowboard store</a></li>
+			<li>On <a href="http://www.lab-au.com/index.php?section=news">lab-au's</a> news panel.</li>
+			<li>On <a href="http://www.doemaarnetalsof.com/biografie.php">Doe Maar Net Alsof Officiële Webzijde</a>!</li>
+			<li>On <a href="http://www.rezo.ge/design.htm">Rezo Kaishauri's portfolio</a> site.</li>
+		</ul>
+		<h2>Usage</h2>
+		<p>Just include the following files in the head of your page:</p>
+		<ul>
+			<li><a href="jquery-1.2.3.min.js">jQuery</a> (I'm using 1.2.3 here but older versions should be fine)</li>
+			<li><a href="jquery.dimensions.min.js">the dimensions plugin (tested against 1.2)</a></li>
+			<li><a href="jquery.mousewheel.min.js">the mouse wheel plugin</a> (if you want mouse wheel support)</li>
+			<li><a href="jScrollPane.js">jScrollPane.js</a></li>
+			<li><a href="jScrollPane.css">jScrollPane.css</a></li>
+		</ul>
+		<p>Like so:</p>
+<pre>
+&lt;script type="text/javascript" src="jquery-1.1.3.1.pack.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="jquery.dimensions.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="jquery.mousewheel.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="jScrollPane.min.js"&gt;&lt;/script&gt;
+&lt;link rel="stylesheet" type="text/css" media="all" href="jScrollPane.css" /&gt;
+</pre>
+		<p>
+			Then you can use any query selector to select the elements you would like to apply jScrollPane
+			and then initialise it. The following code runs when the document is ready and finds any element
+			with a class of "scroll-pane" and then calls jScrollPane on them.
+		</p>
+<pre>
+$(function()
+{
+	$('.scroll-pane').jScrollPane();
+});
+</pre>
+		<p>
+			You can pass some optional parameters to the jScrollPane function. These take the form of an object
+			with the following attributes:
+		</p>
+		<ul>
+			<li><strong>scrollbarWidth</strong> [int] - the width of the created scrollbar in pixels (defaults to 10)</li>
+			<li><strong>scrollbarMargin</strong> [int] - the margin to leave to the left of the scrollbar in pixels (defaults to 5)</li>
+			<li><strong>wheelSpeed</strong> [int] - controls how fast the mouse wheel makes the content scroll in pixels (defaults to 18)</li>
+			<li><strong>showArrows</strong> [boolean] - controls whether to display arrows for the user to scroll with (defaults to false)</li>
+			<li><strong>arrowSize</strong> [int] - the height of the arrow buttons if showArrows=true (calculated from CSS if not provided)</li>
+			<li><strong>animateTo</strong> [boolean] - whether to animate when calling <a href="scrollTo.html">scrollTo and scrollBy</a> (defaults to false)</li>
+			<li><strong>dragMinHeight</strong> [int] - the minimum height to allow the drag bar to be (defaults to 0)</li>
+			<li><strong>dragMaxHeight</strong> [int] - the maximum height to allow the drag bar to be (defaults to 99999!)</li>
+			<li><strong>animateInterval</strong> [int] - The interval in milliseconds to update an animating scrollPane (default 100)</li>
+			<li><strong>animateStep</strong> [int] - The amount to divide the remaining scroll distance by when animating (default 3)</li>
+			<li><strong>maintainPosition</strong> [boolean] - Whether you want the contents of the scroll pane to maintain it's position when you re-initialise it - so it doesn't scroll as you add more content (default true)</li>
+			<li><strong>scrollbarOnLeft</strong> [boolean] - Whether the scrollbar should appear on the left hand side of the panes content (make sure your CSS also reflects this)</li>
+		</ul>
+		<h2>Downloads</h2>
+		<p>
+			You can download this plugin in a number of ways. Easiest is the <a href="jScrollPane.zip">zip file</a>
+			which contains all the files used in these example pages. Alternatively you can download the indivdual files
+			from the links above. jScrollPane is also available in the <a href="http://jqueryjs.googlecode.com/svn/trunk/plugins/jScrollPane/">jQuery svn repository</a>.
+		</p>
+		<h2>Limitations</h2>
+		<p>
+			Because the element that you turn into a scrollpane is wrapped in another element you can't apply any
+			positional styling to it. This is a shame but the problem is easily avoided by wrapping the element in
+			another div with the positional styling on it (like the divs on this page with a class of holder).
+		</p>
+		<h2>Bugs</h2>
+		<p>Bug reports and enhancement requests should be made through the <a href="http://jquery.com/plugins/project/jScrollPane">jScrollPane plugin page</a> on the jQuery site.</p>
+		<h2>Support</h2>
+		<p>All support requests should be made through the <a href="http://groups.google.com/group/jquery-en">jQuery mailing list</a>.
+	</body>
+</html>

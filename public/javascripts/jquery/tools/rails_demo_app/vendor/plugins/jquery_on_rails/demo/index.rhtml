@@ -1,0 +1,42 @@
+<style>
+  table.sortable_table {
+    border: 1px solid #000;
+    border-collapse: collapse;
+  }
+  
+  table.sortable_table th {
+    border-bottom: 1px solid #ccc;
+  }
+  
+  table.sortable_table th, table.sortable_table td {
+    padding: 5px;
+  }
+  
+  table.sortable_table tr.even {
+    background-color: #fcc;
+  }
+  
+  table.sortable_table tr.odd {
+    background-color: #ffc;
+  }  
+</style>
+
+<% sortable_table :sort_class_asc => "ascending", :sort_class_desc => "descending", 
+    :striping_row_class => ["even", "odd"], :stripe_rows_on_start_up => true do %>
+  <thead>
+    <tr>
+      <th>Col 1</th>
+      <th>Col 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Yehuda Katz</td>
+      <td>$55.22</td>
+    </tr>
+    <tr>
+      <td>Leah Silber</td>
+      <td>$62.50</td>
+    </tr>    
+  </tbody>
+<% end %>

@@ -1,0 +1,21 @@
+<site>
+  <meta>
+    <sitename>My Company</sitename>
+    <siteslogan>We are great slogan makers</siteslogan>
+    <footer>(c) 2007 My Company.  All rights reserved</footer>
+  </meta>
+  <content title="Main">
+    My company is the best company <strong>ever</strong>!<br />
+    My company is a company in which we do all sorts of awesome stuff!
+  </content>
+  <content title="News">
+    <ul>
+      <li>
+        Some date in the future - we hire someone!
+      </li>
+      <li>
+        October 3rd, 2007 - MyCompany started and sitemaker created.
+      </li>
+    </ul>
+  </content>
+</site>

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	"http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+		<title>fxqueue</title>
+		<!-- load latest build of jquery.js -->
+		<script type="text/javascript" src="../../../jquery/dist/jquery.js"></script>
+
+		<!-- load jquery.fxqueue.js (this is what we're testing! -->
+		<script type="text/javascript" src="../jquery.fxqueue.js"></script>
+		<link rel="Stylesheet" media="screen" href="../../../qunit/testsuite.css" />
+		
+		<script type="text/javascript" charset="utf-8">
+			$(function() {
+				$('#userAgent').html(navigator.userAgent);
+				
+				var fn = function() {
+					$('<p>Finished animating: '+this.id+'</p>').appendTo('body');
+				};
+				
+				$('#test1').fxqueue({width:'hide', height:'hide', opacity:'hide'}, 'slow', "swing", fn);
+				$('#test4').fxqueue({width:'hide', height:'hide', opacity:'hide'}, 'slow', fn);
+				$('#test5').fxqueue({width:'hide', height:'hide', opacity:'hide'}, 'slow', "swing", fn);
+				$('#test2').fxqueue({width:'hide', height:'hide', opacity:'hide'}, fn);
+				$('#test3').fxqueue({width:'hide', height:'hide', opacity:'hide'}, 'slow', "linear", fn);
+			});
+		</script>
+		
+		<style type="text/css" media="screen">
+			#test1, #test2, #test3, #test4 { width: 100px; height: 100px; background-color: #333; color: #fff; }
+		</style>
+	</head>
+	<body>
+		<h1 id="banner">jQuery fxqueue.js - Test</h1>
+		<h2 id="userAgent"></h2>
+		
+		<div id="test1">Test 1</div>
+		<div id="test2">Test 2</div>
+		<div id="test3">Test 3</div>
+		<div id="test4">Test 4</div>
+	</body>
+</html>

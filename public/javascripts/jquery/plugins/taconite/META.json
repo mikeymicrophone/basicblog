@@ -1,0 +1,30 @@
+{
+	"name": "jQuery-Taconite",
+	"version": 2.1.0,
+	"author": [
+		"Mike Alsup <malsup@gmail.com>"
+	],
+	"abstract": "Port of Taconite Framework's parser functionality.",
+	"license": "mit, gpl",
+	"distribution_type": "plugin",
+	"requires": {
+		"jQuery": ">= 1.0.4"
+	},
+	"build_requires": {
+	},
+	"provides": {
+		"jQuery.Taconite": {
+			"version": 2.1.0,
+			"file": "jquery.taconite.js"
+		}
+	},
+	"keywords": [
+		"taconite"
+	],
+	"stability": "Stable",
+	"meta-spec": {
+		"version": 1.3,
+		"url": "http://module-build.sourceforge.net/META-spec-v1.3.html"
+	},
+	"generated_by": "M. Alsup"
+}

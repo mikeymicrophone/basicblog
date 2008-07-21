@@ -1,0 +1,18 @@
+JqueryOnRails
+=============
+
+jQuery on Rails allows you to separate out your jQuery files, and have them automatically
+included as required by your markup.
+
+It uses a custom version of hpricot to detect which JS files are needed.
+
+jQuery on Rails builds a list of selectors from the JS files in your public/javascripts
+directory once when the web server loads. If you modify your JS files, you will need to
+restart the server.
+
+IMPORTANT: You will need to add "map.jquery" to your routes file.
+
+IMPORTANT: You will need to download and compile the hpricot gem from the jQuery
+           svn (in trunk/tools/hpricot). You can compile it via rake install,
+           but you will need to have ragel installed first (on OSX, use port
+           to install it).

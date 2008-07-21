@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>
+			jquery 
+		</title>
+		<link rel="stylesheet" href="textNodes.css" type="text/css"></link>
+		<script type="text/javascript" src="/js/jquery.js"></script> 
+		<script type="text/javascript" src="/plugins/textNodes/jquery.textNodes.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				var acronyms = {
+					 jQuery:"a new type of JavaScript"
+					,JavaScript:"THE Language for the web!"
+					,Ajax:"keeps your JavaScript clean!"
+					,traverse:"even better with the textNodes plugin"
+					,Jake:"the author of the textNodes plugin"
+					,Wolpert:"the author of the textNodes plugin"
+				};
+				var links = {
+					 jQuery:'http://jQuery.com'
+					,Methvin:"http://www.nabble.com/Re%3A-Change-href-of-external-links-p7609630.html"
+					,Dave	:"http://www.nabble.com/Re%3A-Change-href-of-external-links-p7609630.html"
+					,plugin:"http://jqueryjs.googlecode.com/svn/trunk/plugins/textNodes/"
+					,textNodes:"http://jqueryjs.googlecode.com/svn/trunk/plugins/textNodes/"
+				};
+				$("body")
+				.match(/\d+/g).wrap("<i/>").end()
+				.acronyms(acronyms)
+				.links(links)
+				;
+				var code = $("script:last").clone().textNodes().wrap("<code/>").parent().replace(/\t/g,"  ").end().hide().appendTo("body");
+				$("#showScript").toggle(function(){code.show()},function(){code.hide()});
+			});
+		</script> 
+	</head>
+	<body>
+		<h1 class="first">
+			jQuery is a new type of JavaScript library. 
+		</h1>
+		<p>
+			jQuery is a fast, concise, JavaScript Library that simplifies how you traverse HTML documents, handle events, perform animations, and add Ajax interactions to your web pages. 
+			<strong>
+				jQuery is designed to change the way that you write JavaScript.
+			</strong>
+		</p>
+		<blockquote>
+			"You start with 10 lines of jQuery that would have been 20 lines of tedious DOM JavaScript. By the time you are done it's down to two or three lines and it couldn't get any shorter unless it read your mind."
+			-- Dave Methvin
+		</blockquote>
+		<blockquote>
+			"With the textNodes plugin, wrangling text is as easy as the dom."
+			-- Jake Wolpert
+		</blockquote>
+		<p>
+			What does this jQuery code look like? <button type="button" id="showScript">Click here!</button>
+		</p>
+</body>
+</html>

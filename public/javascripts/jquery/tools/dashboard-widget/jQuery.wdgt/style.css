@@ -1,0 +1,33 @@
+body {margin: 0; font-family: Verdana, sans-serif; font-size: small;}
+#infobutton {position: absolute; width: 13px; height: 13px; top: 20px; left: 20px; cursor: pointer;}
+#done {position: absolute; left:340px; top:27px;}
+#front {display: block;}
+#back {display: none;}
+#logo-jquery, #back .bg {position: absolute; left: 10px; top: 15px; z-index:0;}
+#logo-medallia{position: absolute; top:23px; left:158px;}
+#searchfield {position: absolute; width: 241px; left: 143px; top: 25px;}
+#drop {position: absolute; font-family: Helvetica Neue; font-size: 1em; width: 376px; top: 58px; left: 27px; z-index:-1; display:none; border:2px solid #eee; background-color:#fff;}
+#content {overflow:auto; padding:4px; max-height:400px; position:relative; z-index:-1;}
+
+h2, p, .func .short{margin:0; padding:0;}
+strong{color:blue;}
+strong:hover{cursor:pointer;}
+#popup{position:absolute;z-index:10; left: 37px; top: 27px;}
+.func {color:#333;}
+.func .title{margin:5px 0 2px 0; font-size:95%; color:#000;}
+.code pre{overflow:auto;}
+.short, .long, h2, .desc, dt, dd{padding-left:10px;}
+.short{display:block;}
+.func .more, .func .short{font-size:90%; margin:5px 0 2px 0;}
+.func .more{display:none;}
+h2{font-size:105%; margin-top:5px; background:url(images/star.png) no-repeat left 3px; padding-bottom:2px;}
+span.param-type{border-bottom:1px dashed #999; color:#666; margin-left:3px;}
+a.param-name{margin-right:3px; border-bottom:1px dashed #999;}
+dl{list-style:none; padding:0; margin:0;}
+dd{background-color:#eee; padding:2px 1px 2px; margin:0 0 0 10px;}
+dt{color:#333; font-weight:bold; font-size:95%; padding-top:2px; padding-bottom:2px;}
+
+#footer{display:block; margin:0 auto; text-align:center; font-size:85%; background-color:#eee; padding:2px 0 3px;}
+#footer img{float:left; position:relative; top:2px; left:4px; cursor:pointer;}
+#ver{font-size:80%; color:#777; float:right; margin-right:2px;}
+.space{padding:0 0 5px; display:block;}

@@ -1,0 +1,74 @@
+- convert custom selectors to functions
+- improve demo
+- create test suite
+- complete list of todo's per section of the spec
+
+----------------------------------------
+
+WHATWG Web Forms 2.0 Spec
+http://www.whatwg.org/specs/web-forms/current-work/
+
+2.3
+---
+- data attribute for forms
+- case insensitive type attribute checking
+
+2.4
+---
+- input types
+  - datetime
+  - datetime-local
+  - date
+  - month
+  - week
+  - time
+  - range
+    - make sure on load if no value is set, that the value is set to min)
+	- default min = 0
+	- default max = 100
+  - email (ensure compatibility with definition)
+- potentially support translation of relative IRIs into absolute IRIs
+- make sure default value of step for number and range is 1
+- support "any" step value
+
+2.5
+---
+- accesskey for select and label
+
+2.6
+---
+- only support pattern for text, password, email, url, texatrea
+
+2.10
+----
+- autofocus
+
+2.11
+----
+- inputmode
+
+2.12
+----
+- datalist element and list attribute
+
+2.13
+----
+- output element
+  - requires creating the new event model
+
+2.14
+----
+- textarea wrap attribute
+- accept attribute?
+
+2.16
+----
+- form replace attribute
+
+2.17
+----
+- submit button options
+
+2.18
+----
+=== RELATES TO VARIOUS SECTIONS ===

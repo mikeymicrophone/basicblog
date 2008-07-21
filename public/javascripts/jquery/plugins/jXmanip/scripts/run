@@ -1,0 +1,4 @@
+echo $@ >> lib/a
+cd lib
+java -jar js.jar run.js
+rm a

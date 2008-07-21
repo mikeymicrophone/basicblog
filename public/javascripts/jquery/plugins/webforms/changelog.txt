@@ -1,0 +1,31 @@
+0.4.0
+-----
+* Added support for data attributes on select elements.
+* Modified email regex to avoid bug in Opera.
+
+0.3.7
+-----
+* Added URL validation.
+* Added a basic demo.
+* Fixed email validation.
+
+0.3.6
+-----
+
+* Added jQuery.isDefaultSubmit() for determining if an element is the default submit button for a form.
+* Added jQuery.isIndeterminate() for determining if a group of radio elements doesn't have any element checked.
+* Added all selectors currently defined in Web Forms 2.0.
+
+0.3.5
+-----
+
+* Added support for exponent notation in number values.
+* Added support for number and email input types (<input wftype="email">).
+* Fixed selector for finding input elements that will validate.
+* Refactored validation system.
+* Fixed rangeUnderflow and rangeOverflow validation.
+* Added jQuery.webForms.beforeValidate for setting a function to run before validation (running this function is the first operation of checkValidity()).
+* Added jQuery.webForms.errorHandler for setting the default error handler.
+* Added support for invalid events returning false to prevent use of the default error handler.
+* Fixed setCustomValidity().
+* Split automatic setup of form validation into its own file.

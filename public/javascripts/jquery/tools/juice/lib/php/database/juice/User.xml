@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<lumine-map table="_user" class="juice.User">
+	<id name="id" column="id">
+		<generator class="default" />
+	</id>
+	<property name="username" column="username" type="char" crypt="false"/>
+	<property name="password" column="password" type="char" crypt="false"/>
+	<property name="email" column="email" type="char" crypt="false"/>
+	<property name="team" column="team" type="tinyint" not-null="true" crypt="false"/>
+	<property name="createdate" column="createdate" type="timestamp" crypt="false"/>
+</lumine-map>

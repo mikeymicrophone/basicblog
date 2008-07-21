@@ -1,0 +1,54 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html id="html">
+  <head>
+    <title>Templating</title>
+	<link rel="Stylesheet" media="screen" href="../../../qunit/testsuite.css" />
+  	<script type="text/javascript" src="jquery.min.js"></script>
+  	<script type="text/javascript" src="../jquery.templating.js"></script>
+	<script type="text/javascript" src="../../../qunit/testrunner.js"></script>
+  </head>
+  <body id="body">
+    <h1>Templating</h1>
+  	<h2 id="banner"></h2>
+  	<h2 id="userAgent"></h2>    
+      <div id="main" style="display: none">
+        <div class="_template" id="testMe"><![CDATA[
+            WWW: <a href="http://www.{{first}}{{last}}.com/">{{last}}, {{first}}</a>
+            {{first}} {{last}}
+        ]]></div>
+      </div>
+      <ol id="tests"></ol>
+    <script type="text/javascript">
+          
+      module("Template");
+        
+      test("should make a correct function", function() {
+        expect(2);
+        var tmp = $.makeTemplate("Hello {{foo}} Goodbye");
+        ok(tmp({foo: "Foo"}) == "Hello Foo Goodbye", "Basic");
+        tmp = $.makeTemplate("That is {{parseInt(foo)}}");
+        ok(tmp({foo: 1.6}) == "That is 1", "Global functions");
+      });
+      
+      module("Element");
+      
+      test("should be able to handle being able to be templatified", function() {
+        expect(1);
+        $("#testMe").templatize();
+        $("#testMe").updateTemplate({first: "Yehuda", last: "Katz", number: "17"});
+        ok($("#testMe").html().match(/Katz, Yehuda/), "updateTemplate()");
+      });
+      
+      test("should be able to load template info via AJAX", function() {
+        expect(1);
+        $("#testMe").templatize();
+        stop();
+        $("#testMe").loadTemplate("test.json", function(json) { 
+          ok($("#testMe").html().match(/Katz, Yehuda/), "loadTemplate()");
+          start(); 
+        });
+      })
+    </script>    
+  </body>
+</html>

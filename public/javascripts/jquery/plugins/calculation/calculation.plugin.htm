@@ -1,0 +1,447 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>jQuery Calculation Plug-in</title>
+	<script type="text/javascript" src="./jquery-1.2.1.js"></script>
+
+	<!--// load jQuery Plug-ins //-->
+	<script type="text/javascript" src="../field/jquery.field.js"></script>
+	<script type="text/javascript" src="./jquery.calculation.js"></script>
+
+	<script type="text/javascript">
+	var bIsFirebugReady = (!!window.console && !!window.console.log);
+
+	$(document).ready(
+		function (){
+			// update the plug-in version
+			$("#idPluginVersion").text($.Calculation.version);
+
+/*			
+			$.Calculation.setDefaults({
+				onParseError: function(){
+					this.css("backgroundColor", "#cc0000")
+				}
+				, onParseClear: function (){
+					this.css("backgroundColor", "");
+				}
+			});
+*/
+			
+			// bind the recalc function to the quantity fields
+			$("input[@name^=qty_item_]").bind("keyup", recalc);
+			// run the calculation function now
+			recalc();
+
+			// automatically update the "#totalSum" field every time
+			// the values are changes via the keyup event
+			$("input[@name^=sum]").sum("keyup", "#totalSum");
+			
+			// automatically update the "#totalAvg" field every time
+			// the values are changes via the keyup event
+			$("input[@name^=avg]").avg({
+				bind:"keyup"
+				, selector: "#totalAvg"
+				// if an invalid character is found, change the background color
+				, onParseError: function(){
+					this.css("backgroundColor", "#cc0000")
+				}
+				// if the error has been cleared, reset the bgcolor
+				, onParseClear: function (){
+					this.css("backgroundColor", "");
+				}
+			});
+
+			// automatically update the "#minNumber" field every time
+			// the values are changes via the keyup event
+			$("input[@name^=min]").min("keyup", "#numberMin");
+
+			// automatically update the "#minNumber" field every time
+			// the values are changes via the keyup event
+			$("input[@name^=max]").max("keyup", "#numberMax");
+
+			// this calculates the sum for some text nodes
+			$("#idTotalTextSum").click(
+				function (){
+					// get the sum of the elements
+					var sum = $(".textSum").sum();
+
+					// update the total
+					$("#totalTextSum").text("$" + sum.toString());
+				}
+			);
+
+			// this calculates the average for some text nodes
+			$("#idTotalTextAvg").click(
+				function (){
+					// get the average of the elements
+					var avg = $(".textAvg").avg();
+
+					// update the total
+					$("#totalTextAvg").text(avg.toString());
+				}
+			);
+
+		}
+	);
+	
+	function recalc(){
+		$("[@id^=total_item]").calc(
+			// the equation to use for the calculation
+			"qty * price",
+			// define the variables used in the equation, these can be a jQuery object
+			{
+				qty: $("input[@name^=qty_item_]"),
+				price: $("[@id^=price_item_]")
+			},
+			// define the formatting callback, the results of the calculation are passed to this function
+			function (s){
+				// return the number as a dollar amount
+				return "$" + s.toFixed(2);
+			},
+			// define the finish callback, this runs after the calculation has been complete
+			function ($this){
+				// sum the total of the $("[@id^=total_item]") selector
+				var sum = $this.sum();
+				
+				$("#grandTotal").text(
+					// round the results to 2 digits
+					"$" + sum.toFixed(2)
+				);
+			}
+		);
+	}
+	</script>
+
+	<style type="text/css">
+		#testForm {
+			width: 800px;
+		}
+
+		code {
+			background-color: #e0e0e0;
+		}
+
+		#formContent p {
+			clear: both;
+			min-height: 20px;
+		}
+
+		#idCheckboxMsg{
+			color: red;
+			font-weight: bold;
+		}
+
+		#totalTextSum,
+		.textSum,
+		#totalTextAvg,
+		.textAvg {
+			border: 1px solid black;
+			padding: 2px;
+		}
+	</style>
+
+</head>
+<body>
+
+<h1>
+	jQuery Calculation Plug-in (v<span id="idPluginVersion">0.1</span>)
+</h1>
+
+<p>
+	The Calculation plug-in is designed to give easy-to-use jQuery functions
+	for commonly used mathematical functions.
+</p>
+
+<p>
+	This plug-in will work on all types of HTML elements&#151;which means you
+	can use it to calculate values in &lt;td&gt; elements or in &lt;input&gt;
+	elements. You can even mix and match between element types.
+</p>
+
+<p>
+	Numbers are parsed from the element using parseNumber() method&#151;which
+	uses a regular expression (<code>/-?\d+(,\d{3})*(\.\d{1,})?/g</code>) to
+	parse out the numeric value. You can change the regular expression that's
+	used to determine what's consider a number by changing the default regular
+	expression.
+</p>
+<h2>
+	<a name="download">Download</a>
+</h2>
+
+<p>
+	Download the plug-in: <br />
+	<a href="./jquery.calculation.js">jquery.calculation.js</a> <br />
+	<a href="./jquery.calculation.min.js">jquery.calculation.min.js</a>
+</p>
+
+<h2>
+	<a name="examples">Interactive Examples</a>
+</h2>
+
+<form action="" method="post" id="frmCreateCheckboxRange" onsubmit="return false;">
+	<fieldset>
+		<legend>Calculation Examples</legend>
+		<div id="formContent">
+
+			<p id="ex-sum">
+				The Calculation plug-in can parse various DOM elements. From normal
+				<code>div</code> and <code>span</code> tags to all form field elements.
+			</p>
+
+			<p>
+				Numbers:
+				<input type="text" name="sum" value="3" size="2" />
+				<input type="text" name="sum" value="2" size="2" />
+				<input type="text" name="sum" value="1" size="2" />
+				<input type="text" name="sum_alt" value="4" size="2" />
+				&nbsp;&nbsp;
+				Sum:
+				<input type="text" name="totalSum" id="totalSum" value="" size="2" readonly="readonly" />
+				(Change the values for dynamic calculations.)
+			</p>
+
+			<p id="ex-avg">
+				Numbers:
+				<input type="text" name="avg" value="25" size="2" />
+				<input type="text" name="avg" value="12" size="2" />
+				<input type="text" name="avg" value="6" size="2" />
+				<input type="text" name="avg_alt" value="33" size="2" />
+				&nbsp;&nbsp;
+				Average:
+				<input type="text" name="totalAvg" id="totalAvg" value="" size="2" readonly="readonly" />
+				(Change the values for dynamic calculations.)
+			</p>
+			
+			<blockquote>
+				<strong>NOTE:</strong>
+				The above example uses the onParseError and onParseClear methods to change the background
+				of any field in which it can not correctly parse the number from. To test this, try changing
+				a field to all numeric values.
+			</blockquote>
+
+			<p id="ex-min">
+				Numbers:
+				<input type="text" name="min" value="67" size="2" />
+				<input type="text" name="min" value="-12" size="2" />
+				<input type="text" name="min" value="41" size="2" />
+				<input type="text" name="min_alt" value="69" size="2" />
+				&nbsp;&nbsp;
+				Min:
+				<input type="text" name="numberMin" id="numberMin" value="" size="2" readonly="readonly" />
+				(Change the values for dynamic calculations.)
+			</p>
+
+			<p id="ex-max">
+				Numbers:
+				<input type="text" name="max" value="67" size="2" />
+				<input type="text" name="max" value="-12" size="2" />
+				<input type="text" name="max" value="41" size="2" />
+				<input type="text" name="max_alt" value="69" size="2" />
+				&nbsp;&nbsp;
+				Max:
+				<input type="text" name="numberMax" id="numberMax" value="" size="2" readonly="readonly" />
+				(Change the values for dynamic calculations.)
+			</p>
+
+			<p id="ex-sum-span">
+				Numbers:
+				<span class="textSum">-$19.99</span>
+				+
+				<span class="textSum">-$7.99</span>
+				+
+				<span class="textSum">-$.99</span>
+				+
+				<span class="textSum">-$49.99</span>
+				&nbsp;&nbsp;
+				Sum:
+				<span id="totalTextSum">????</span>
+				<input type="button" value="Calc" id="idTotalTextSum" />
+			</p>
+
+			<p id="ex-avg-span">
+				Numbers:
+				<span class="textAvg">3,294.75</span>
+				+
+				<span class="textAvg">85.97</span>
+				+
+				<span class="textAvg">2974.25</span>
+				+
+				<span class="textAvg">$6,502.03</span>
+				&nbsp;&nbsp;
+				Avg:
+				<span id="totalTextAvg">????</span>
+				<input type="button" value="Calc" id="idTotalTextAvg" />
+			</p>
+
+			<hr />
+
+			<p id="ex-calc">
+				The example below shows how the calculation plug-in can be used
+				to dynamically calculate values for you. All of the "Total" values
+				(including the "Grand Total") are calculated automatically using
+				the calc() method.
+			</p>
+
+			<table width="500">
+				<col style="width: 50px;" />
+				<col />
+				<col style="width: 60px;" />
+				<col style="width: 110px;" />
+				<tr>
+					<th>
+						Qty
+					</th>
+					<th align="left">
+						Product
+					</th>
+					<th>
+						Price
+					</th>
+					<th>
+						Total
+					</th>
+				</tr>
+				<tr>
+					<td align="center">
+						<input type="text" name="qty_item_1" id="qty_item_1" value="1" size="2" />
+					</td>
+					<td>
+						<a href="http://www.packtpub.com/jQuery/book">Learning jQuery</a>
+					</td>
+					<td align="center" id="price_item_1">
+						$39.99
+					</td>
+					<td align="center" id="total_item_1">
+						$39.99
+					</td>
+				</tr>
+				<tr>
+					<td align="center">
+						<input type="text" name="qty_item_2" id="qty_item_2" value="1" size="2" />
+					</td>
+					<td>
+						<a href="http://jquery.com/">jQuery Donation</a>
+					</td>
+					<td align="center" id="price_item_2">
+						$14.99
+					</td>
+					<td align="center" id="total_item_2">
+						$14.99
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3" align="right">
+						<strong>Grand Total:</strong>
+					</td>
+					<td align="center" id="grandTotal">
+					</td>
+				</tr>
+			</table>
+		</div>
+	</fieldset>
+</form>
+
+
+<h2>
+	<a name="syntax">Syntax Examples</a>
+</h2>
+
+<ul>
+	<li>
+		<code>$("input[@name^='price']").parseNumber();</code><br />
+		This would return an array of potential number for every match in the selector
+	</li>
+
+	<li>
+		<code>$("input[@name^='sum']").sum();</code><br />
+		Returns the sum of all the input objects that start with a name attribute
+		of "sum". This breaks the jQuery chain.
+	</li>
+
+	<li>
+		<code>$("input[@name^=';sum']").sum("keyup", "#totalSum");</code><br />
+		Updates the "#totalSum" element with the sum of all the input objects that
+		start with the name attribute of "sum" anytime the keyup event occurs within
+		those fields. This does <strong>not</strong> break the jQuery chain.
+	</li>
+
+	<li>
+		<code>$("input[@name^='avg']").avg();</code><br />
+		Returns the average of all the input objects that start with a name attribute
+		of "avg".
+	</li>
+
+	<li>
+		<code>$("input[@name^='avg']").avg("keyup", "#totalAvg");</code><br />
+		Updates the "#totalAvg" element with the average of all the input objects that
+		start with the name attribute of "avg" anytime the keyup event occurs within
+		those fields. This does <strong>not</strong> break the jQuery chain.
+	</li>
+
+	<li>
+		<code>$("input[@name^='min']").min();</code><br />
+		Returns the minimum value of all the input objects that start with a name attribute
+		of "min".
+	</li>
+
+	<li>
+		<code>$("input[@name^='max']").max();</code><br />
+		Returns the maximum value of all the input objects that start with a name attribute
+		of "max".
+	</li>
+	
+	<li>
+<pre><code>$("[@id^=total_item]").calc(
+	// the equation to use for the calculation
+	"qty * price",
+	// define the variables used in the equation, these can be a jQuery object
+	{
+		qty: $("input[@name^=qty_item_]"),
+		price: $("[@id^=price_item_]")
+	},
+	// define the formatting callback, the results of the calculation are passed to this function
+	function (s){
+		// return the number as a dollar amount
+		return "$" + s.toFixed(2);
+	},
+	// define the finish callback, this runs after the calculation has been complete
+	function ($this){
+		// sum the total of the $("[@id^=total_item]") selector
+		var sum = $this.sum();
+		
+		$("#grandTotal").text(
+			// round the results to 2 digits
+			"$" + sum.toFixed(2)
+		);
+	}
+);</code></pre>
+		This example shows off the code used quantity * price = total example
+		shown above. 
+	</li>
+	<li>
+<pre><code>$.Calculation.setDefaults({
+	// regular expression used to detect numbers, if you want to force the field to contain
+	// numbers, you can add a ^ to the beginning or $ to the end of the regex to force the
+	// the regex to match the entire string: /^(-|-\$)?(\d+(,\d{3})*(\.\d{1,})?|\.\d{1,})$/g
+	reNumbers: /(-|-\$)?(\d+(,\d{3})*(\.\d{1,})?|\.\d{1,})?/g
+	// should the Field plug-in be used for getting values of :input elements?
+	, useFieldPlugin: true/false
+	// a callback function to run when an parsing error occurs
+	, onParseError: null
+	// a callback function to run once a parsing error has cleared
+	, onParseClear: null
+});</code></pre>
+	Use the setDefaults() method to change the default parameters for the Calculation
+	Plug-in. If the <a href="http://jquery.com/plugins/project/field">Field Plug-in</a> 
+	is loaded, then it will be used by default.
+	</li>
+</ul>
+
+<!--
+|input[@name^=qty]| * |input[@name^=price]|
+-->
+
+</body>
+</html>

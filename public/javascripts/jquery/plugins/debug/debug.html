@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>debug()</title>
+		<script type="text/javascript">window.onerror = function(e,f,l){alert(e + "\nin:" + f + "\n@" + l)} //just a little extra error catching</script>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="jquery.debug-pack.js"></script>
+		<script type="text/javascript">
+			var DEBUG = true
+			jQuery(function($){
+				$("#clicklogged").find("*").clicklogger('logging.php')
+				console.log("wheee a console.log")
+				console.time("j")
+				var x =[[[1],{x:23,y:'7',z:true}]]
+				$.log('x',x)
+				$("#entry").submit(function(e){$(this).debug(e);return false}).debug("the form")
+				$(":input")
+					.click( function(e){$(this).debug(e)})
+					.change(function(e){$(this).debug(e)})
+					.keyup(function(e){$(this).debug(e)})
+					.debug('input fields')
+				console.timeEnd("j")
+			});
+		</script>
+	</head>
+	<body>
+		<div>
+			<h1>Did you ever want to <code>.debug()</code> your jQuery?</h1>
+			<p>
+				Firebug can really help debugging jQuery! A little plugin can help even more! But, for those non-firefox browsers, no firebug... unless you use firebug lite.
+			</p>
+			<p>
+				Until now! I tried to mimic the display and behavior of firebug, while keeping this plugin small and with no other plugins required.
+			</p>
+			<p>
+				It <i>should be</i> compatible with firebug or firebug lite or no firebug at all.
+			<p>
+				The simplest use is to 'sprinkle' <code>.debug()</code> in your chains. <code>.debug(e)</code> will also show the value of e, useful for events!
+			</p>
+			<p>
+				I hope you make good use of this <a href="jquery.debug.js">plugin</a>.
+				You can see the <a href="http://jqueryjs.googlecode.com/svn/trunk/plugins/debug/debug.html">sample</a> (this page). 
+				The latest version is at <a href="http://jqueryjs.googlecode.com/svn/trunk/plugins/debug/">Google</a>.
+			</p>
+			<p>
+				PS I haven't coded a regular alert in a long time since writing $.log
+			</p>
+			<p>
+				PPS tested with Firefox 2, Opera 9, Safari 2, and IE7
+			</p>
+			<form class="classy doggy" id="entry">
+				<!-- comment in form-->
+				<input type="text" id="tex" name="tex" size="50" maxlength="50" />
+				<input type="text" id="sex" name="sex" size="11" maxlength="11" />
+				<input type="text" id="hex" name="hex" size="11" maxlength="11" />
+				<input type="submit" name="Save" value="Save"/>
+			</form>
+		</div>
+		<div>
+			<h2> Now with <code>console.time("somename")</code> and <code>console.time("somename")</code>!</h2>
+			<p> 
+				Simple Timing of script (like fireBug)
+			</p>
+		</div>
+		<div id="clicklogged">
+			<h2> Now with <code>.clicklogger('logging.cgi')</code>!</h2>
+			<p> 
+				Whereever <i>you</i> click (inside this div), the click gets <strong>logged to some php <i>or</i> cgi program &amp; the server log.</strong>
+			</p>
+		</div>
+		<div>
+			<h2> Now with better event debugging!</h2>
+			<p> 
+				<code>.keyup(function(<strong>e</strong>){$(this).debug(<strong>e</strong>)})</code> 
+			</p>
+		</div>
+	</body>
+</html>

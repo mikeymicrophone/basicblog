@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>jQuery Field Plug-in</title>
+	<script type="text/javascript" src="./lib/jquery.js"></script>
+
+	<!--// load jQuery Plug-ins //-->
+	<script type="text/javascript" src="./lib/jquery.field.js"></script>
+
+	<script type="text/javascript">
+	var bIsFirebugReady = (!!window.console && !!window.console.log);
+
+	$(document).ready(
+		function (){
+			// update the plug-in version
+			$("#idPluginVersion").text($.Field.version);
+
+		}
+	);
+	</script>
+
+	<style type="text/css">
+		#testForm {
+			width: 800px;
+		}
+
+		code {
+			background-color: #e0e0e0;
+		}
+
+		#formContent p {
+			clear: both;
+			min-height: 20px;
+		}
+
+		#formContent code {
+			width: 270px;
+			float: left;
+			background-color: #ffffff;
+		}
+
+		#idCheckboxMsg{
+			color: red;
+			font-weight: bold;
+		}
+	</style>
+
+</head>
+<body>
+
+<h1>
+	jQuery Field Plug-in Bug Fix Tests (v<span id="idPluginVersion">0.7</span>)
+</h1>
+
+<form action="" method="post" id="frmTest" onsubmit="return false;">
+
+	<fieldset>
+		<legend>
+			Bug when setting value on a select element and the select is empty
+		</legend>
+		<div>
+			<a href="http://plugins.jquery.com/node/1281">http://plugins.jquery.com/node/1281</a>
+		</div>
+		
+		<p>
+			Empty select element:
+			<select id="emptySelect">
+			</select>
+			<input type="button" value="setValue('2')" onclick="$('#emptySelect').setValue('2');" />
+		</p>
+	</fieldset>
+
+	<fieldset>
+		<legend>
+			FormHash function does not set the values if the value is empty string
+		</legend>
+		<div>
+			<a href="http://plugins.jquery.com/node/958">http://plugins.jquery.com/node/958</a>
+		</div>
+		
+		<p>
+			Set empty hash to text field:
+			<input type="text" name="emptyTextField" value="some user value" />
+			<input type="button" value="formHash({emptyTextField: ''})" onclick="$('#frmTest').formHash({emptyTextField: ''});" />
+		</p>
+	</fieldset>
+
+</form>
+
+
+</body>
+</html>

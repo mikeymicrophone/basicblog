@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<lumine-map table="statistics" class="juice.Statistics">
+	<id name="id" column="id">
+		<generator class="default" />
+	</id>
+	<property name="testid" column="testid" type="int" crypt="false"/>
+	<property name="userid" column="userid" type="int" crypt="false"/>
+	<property name="useragent" column="useragent" type="varchar" crypt="false"/>
+	<property name="platform" column="platform" type="varchar" crypt="false"/>
+	<property name="engine" column="engine" type="varchar" crypt="false"/>
+	<property name="engineversion" column="engineversion" type="varchar" crypt="false"/>
+	<property name="version" column="version" type="varchar" crypt="false"/>
+	<property name="result" column="result" type="tinyint" crypt="false"/>
+	<property name="createdate" column="createdate" type="timestamp" crypt="false"/>
+	<property name="ip" column="ip" type="varchar" crypt="false"/>
+</lumine-map>

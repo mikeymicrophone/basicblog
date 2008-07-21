@@ -1,0 +1,148 @@
+<html id="html">
+<head>
+	<title>jQuery Test Suite</title>
+  <script type='text/javascript' src='file:///System/Library/WidgetResources/AppleClasses/AppleScrollArea.js' charset='utf-8'/>
+  <script type='text/javascript' src='file:///System/Library/WidgetResources/AppleClasses/AppleScrollbar.js' charset='utf-8'/>  
+  <script type='text/javascript' src='file:///System/Library/WidgetResources/AppleClasses/AppleButton.js' charset='utf-8'/>
+	<script type="text/javascript" src="../../jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="../dimensions/dimensions.js"></script>
+  <script type="text/javascript" src="widgets.js"></script>
+  <style>
+    body {
+      background-color: #000;
+      width: 400px;
+      height: 400px;
+      overflow: hidden;
+    }
+    
+    #back { 
+      display: none;
+    }
+    
+    #scrollArea {
+      position: absolute;
+      top: 10px;    
+      bottom: 10px;
+      left: 10px;
+      right: 30px;
+      width: 200px;
+      height: 200px;
+      overflow: hidden;
+    }
+    
+    #scrollArea p {
+      width: 200px;
+      margin-top: 0;
+      background-color: #fff;
+    }
+  
+    #scrollbar {
+      position: absolute;
+      width: 19px;
+    }
+    
+    #horizBar {
+      position: absolute;
+      height: 19px;
+    }
+    
+    button {
+      position: absolute;
+      top: 250px;
+      color: #000;
+      background-color: transparent;
+      border: none;
+    }
+    
+    #second {
+      top: 280px;
+    }
+    
+    #third, #fourth { 
+      top: 310px;
+    }
+    
+    button {
+      opacity: 0;
+    }
+    
+    #fourth {
+      opacity: 1;
+    }
+    
+    #slider {
+      position: absolute;
+      top: 350px;
+      left: 10px;
+    }
+    
+    #vertSlider {
+      position: absolute;
+      top: 10px;
+      left: 250px;
+    }
+    
+    #qsl {
+      position: absolute;
+      top: 10px;
+      left: 275px;
+    }
+    
+    #test {
+      position: absolute;
+      top: 425px;
+      left: 10px;
+      color: #fff;
+    }
+    
+  </style>
+  <script>
+    $(function() {
+      var y = $("#scrollArea").makeScrollAreaWithBars({singlepressScrollPixels: 50}, {id: "scrollBar"}, {id: "horizBar"})
+        .bind("mouseover", function() { y.focus(); }).bind("mouseout", function() { y.blur(); })
+      y.verticalChange(function(val) { qsl.setValue(val); })
+      z = $("button").makeGlassButton();
+      z[0].click(function() { y.horizontalScrollbar().toggleAutohide(); });
+      z[1].click(function() { y.verticalScrollbar().toggle(); });
+      z[2].click(function() { $("#front").flipTo("#back"); });
+      z[3].click(function() { $("#back").flipTo("#front") });
+      sl = jSlider("horizontal", 100, {id: "slider"}, "#front").change(function(val) {
+        y.verticalScrollTo(val * y.contentHeight());
+        $(z[2].button()).css("opacity", val);
+        $(z[1].button()).css("opacity", val / 2);
+        $(z[0].button()).css("opacity", val / 1.5);
+        vsl.setValue(val);
+      });
+      vsl = jSlider("vertical", 350, {id: "vertSlider"}, "#front").change(function(val) {
+        sl.setValue(val)
+      });
+      
+      qsl = jSlider("vertical", 350, {id: "qsl"}, "#front")
+      qsl.enabled = false;      
+    })    
+  </script>
+</head>
+
+<body id="body">
+  <div id="front">
+    <div id="scrollArea">
+      <p>
+      Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Curabitur tincidunt consequat enim. Nunc risus velit, viverra ut, ultrices ut, fringilla in, velit. Pellentesque convallis pellentesque risus. Sed in odio. Sed dignissim. Nam aliquam dictum tellus. Nunc ut eros. Nullam et enim in sem hendrerit eleifend. Praesent auctor, eros ut placerat elementum, quam pede interdum diam, porttitor iaculis mauris nisi egestas massa. Vestibulum imperdiet felis. Fusce dictum, enim eget ornare molestie, enim mauris faucibus lacus, eu viverra mauris tortor a tellus. Pellentesque faucibus, ipsum faucibus ultricies lacinia, lacus felis accumsan felis, et fringilla nunc ante fringilla mauris. In vestibulum. Aliquam et urna in lectus mollis consectetuer. Nullam quis elit. Duis in metus vel metus lacinia mollis. Mauris vestibulum turpis in nisl. Vestibulum nunc. Pellentesque quis metus.
+      </p>
+      <p>
+      Cras ullamcorper, orci semper commodo rhoncus, lectus diam egestas magna, eu imperdiet lectus odio eget ligula. Phasellus magna. Sed et nunc eu mi suscipit condimentum. Fusce massa. Sed ac eros. Etiam imperdiet viverra urna. Maecenas eu felis. Suspendisse ac nulla. Suspendisse volutpat nunc tempus libero. In velit. Curabitur sem ligula, auctor sit amet, posuere aliquet, tincidunt ut, sapien. Quisque diam. Duis auctor ultrices sem. Ut vitae sem. In hac habitasse platea dictumst. Cras sit amet orci cursus magna venenatis placerat.
+      </p>
+      <p>
+      Quisque nonummy, elit quis varius tempor, justo odio rutrum tellus, eu semper justo erat nec mauris. Nullam ornare ornare nisl. Aenean pellentesque interdum libero. Nulla elit massa, porta volutpat, gravida in, bibendum a, ligula. Nulla tempor sollicitudin dolor. Sed justo neque, euismod ac, pulvinar id, consectetuer nec, diam. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed sem felis, eleifend sit amet, egestas vel, semper nec, massa. Maecenas posuere, magna ut egestas tristique, nisl urna ullamcorper risus, eget faucibus ante tortor sed dui. Integer ipsum metus, ultrices at, sollicitudin vel, auctor in, orci. Aenean nec mauris. Pellentesque velit libero, pellentesque id, vulputate a, ullamcorper eu, dolor. Mauris quis diam. Sed nec quam eget libero euismod suscipit. Aenean elementum, libero ut hendrerit porttitor, nulla arcu semper nulla, ac fermentum velit eros nec nibh. Etiam tristique malesuada felis. Pellentesque pulvinar, urna eu dapibus volutpat, orci purus bibendum nulla, facilisis interdum lectus sem id magna.
+      </p> 
+    </div>
+    <button>Set autoHide</button>
+    <button id="second">Toggle Vertical Scrollbar</button>
+    <button id="third">Flip to back</button>
+    <div id="test"></div>
+  </div>
+  <div id="back">
+    <button id="fourth">Flip to front</button>
+  </div>
+</body>
+</html>

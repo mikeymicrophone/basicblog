@@ -1,0 +1,30 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>Templating</title>
+    <script src="../../jquery/dist/jquery.min.js"></script>
+    <script src="jquery.templating.js"></script>
+    <script type="text/javascript">
+      jQuery(function($) {
+        $.pageTemplates = {};
+        $("script[type=text/x-jquery-template]").each(function() {
+          $.pageTemplates[this.title] = $.makeTemplate(this.innerHTML, "<%", "%>");
+          $("body").append($.pageTemplates["template1"]({arr: 
+            [{url: "http://www.yehudakatz.com", text: "Yehuda's site"},
+             {url: "http://www.gweezlebur.com", text: "Ivey's site"}]
+          }));
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <script type="text/x-jquery-template" title="template1">
+      <% $(arr).each(function() { %>
+        <a href="<%= this.url %>"><%= this.text %></a>
+      <% }); %>
+    </script>
+    <a href="foo" rel="#myTemplate" class="updateTemplate">Click</a>
+  </body>
+</html>

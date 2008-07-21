@@ -1,0 +1,26 @@
+{
+	"name": "jQuery-Delicious",
+	"version": 0.1,
+	"author": ["Paul McLanahan <pmclanahan@gmail.com>"],
+	"abstract": "Load a list of bookmarks, tags, network members, and/or fans from del.icio.us for a specific user using the del.icio.us JSON feeds (http://del.icio.us/help/json/), and without need for any server-side component.",
+	"license": "mit, gpl",
+	"distribution_type": "extension",
+	"requires": {
+		"jQuery": ">= 1.1"
+	},
+	"provides": {
+		"jQuery.Delicious": {
+			"version": 0.1,
+			"file": "jquery.delicious.js"
+		}
+	},
+	"keywords": [
+		"del.icio.us",
+		"JSON",
+		"JavaScript"
+	],
+	"meta-spec": {
+		"version": 1.3,
+		"url": "http://module-build.sourceforge.net/META-spec-v1.3.html"
+	}
+}

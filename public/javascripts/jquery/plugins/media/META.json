@@ -1,0 +1,35 @@
+{
+	"name": "jQuery-Media",
+	"version": .66,
+	"author": [
+		"Mike Alsup <malsup@gmail.com>"
+	],
+	"abstract": "Plugin for converting elements into rich media content.",
+	"license": "mit, gpl",
+	"distribution_type": "plugin",
+	"requires": {
+		"jQuery": ">= 1.1.2"
+	},
+	"build_requires": {
+	},
+	"provides": {
+		"jQuery.Media": {
+			"version": .66,
+			"file": "jquery.media.js"
+		}
+	},
+	"keywords": [
+		"media",
+		"mediabox",
+        "flash",
+        "quicktime",
+        "silverlight",
+        "real"
+	],
+	"stability": "Stable",
+	"meta-spec": {
+		"version": 1.3,
+		"url": "http://module-build.sourceforge.net/META-spec-v1.3.html"
+	},
+	"generated_by": "M. Alsup"
+}

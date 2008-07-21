@@ -1,0 +1,196 @@
+<project name="jQuery plugins" basedir="../jquery">
+
+    <!--
+      - Use this build to test compressed plugins and build distributions.
+      -
+      - Requires jquery build files to be available, modify basedir and SRC_DIR
+      - if you named the directories other then "jquery" and "plugins"
+       -->
+
+    <!-- SETUP -->
+
+    <property description="Source Folder" name="SRC_DIR" value="../plugins/" />
+    <property description="Files for parsing etc." name="BUILD_DIR" value="../jquery/build" />
+    <property description="Rhino JS Engine" name="JAR" value="${BUILD_DIR}/js.jar" />
+    <property name="prefix" value="/jquery." />
+
+    <!-- MAIN -->
+
+    <target name="pack" description="Do not call directly.">
+        <echo message="Packing ${plugin}" />
+        <java jar="${JAR}" fork="true">
+            <arg value="${BUILD_DIR}/build/pack.js" />
+            <arg value="${plugin}" />
+            <arg value="${plugin_pack}" />
+        </java>
+        <echo message="${plugin_pack} built." />
+    </target>
+
+	<target name="min" description="Do not call directly.">
+		<echo message="Minifiying ${plugin}" />
+        <java jar="${JAR}" fork="true">
+            <arg value="${BUILD_DIR}/build/min.js" />
+            <arg value="${plugin}" />
+            <arg value="${plugin_min}" />
+        </java>
+        <echo message="${plugin_min} built." />
+	</target>
+
+    <target name="zip" description="Do not call directly.">
+        <echo message="Zipping ${plugin}" />
+    	<property name="tempdir" value=".anttemp" />
+    	<property name="zipdir" value="${tempdir}/jquery-${plugin}" />
+		<mkdir dir="${tempdir}" />
+    	<mkdir dir="${zipdir}" />
+    	<copy todir="${zipdir}">
+    		<fileset dir="${SRC_DIR}${plugin}" excludes="*.zip,test/" />
+    	</copy>
+        <zip destfile="${SRC_DIR}${plugin}/jquery.${plugin}.zip">
+            <zipfileset dir="${tempdir}" excludes="*.zip" />
+        </zip>
+    	<delete dir="${tempdir}" />
+        <echo message="${plugin} zipped" />
+    </target>
+
+    <target name="generic" description="Do not call directly.">
+        <property name="folder" value="${SRC_DIR}${name}${prefix}" />
+        <antcall target="pack">
+            <param name="plugin" value="${folder}${name}.js" />
+            <param name="plugin_pack" value="${folder}${name}.pack.js" />
+        </antcall>
+        <antcall target="min">
+            <param name="plugin" value="${folder}${name}.js" />
+            <param name="plugin_min" value="${folder}${name}.min.js" />
+        </antcall>
+        <antcall target="zip">
+            <param name="plugin" value="${name}" />
+        </antcall>
+    </target>
+
+    <target name="minandpack" description="Do not call directly.">
+        <property name="folder" value="${SRC_DIR}${name}${prefix}" />
+        <antcall target="pack">
+            <param name="plugin" value="${folder}${name}.js" />
+            <param name="plugin_pack" value="${folder}${name}.pack.js" />
+        </antcall>
+        <antcall target="min">
+            <param name="plugin" value="${folder}${name}.js" />
+            <param name="plugin_min" value="${folder}${name}.min.js" />
+        </antcall>
+    </target>
+
+    <target name="quicksearch" description="Build quicksearch plugin.">
+        <antcall target="generic">
+            <param name="name" value="quicksearch" />
+        </antcall>
+    </target>
+
+    <target name="accordion" description="Build accordion plugin.">
+        <antcall target="generic">
+            <param name="name" value="accordion" />
+        </antcall>
+    </target>
+
+    <target name="treeview" description="Build treeview plugin.">
+        <antcall target="generic">
+            <param name="name" value="treeview" />
+        </antcall>
+    </target>
+
+    <target name="format" description="Build format plugin.">
+        <antcall target="generic">
+            <param name="name" value="format" />
+        </antcall>
+    </target>
+
+    <target name="validate" description="Build validate plugin.">
+        <antcall target="generic">
+            <param name="name" value="validate" />
+        </antcall>
+    </target>
+	
+	<target name="autocomplete" description="Build autocomplete plugin.">
+        <antcall target="generic">
+            <param name="name" value="autocomplete" />
+        </antcall>
+    </target>
+
+    <target name="cookie" description="Build cookie plugin.">
+        <antcall target="generic">
+            <param name="name" value="cookie" />
+        </antcall>
+    </target>
+    
+    <target name="tabs" description="Build Tabs plugin.">
+        <antcall target="generic">
+            <param name="name" value="tabs" />
+        </antcall>
+    </target>
+
+    <target name="history_remote" description="Build History/Remote plugin.">
+        <antcall target="generic">
+            <param name="name" value="history_remote" />
+        </antcall>
+    </target>
+
+    <target name="bgiframe" description="Build bgiframe plugin.">
+        <antcall target="minandpack">
+            <param name="name" value="bgiframe" />
+        </antcall>
+    </target>
+
+	<target name="copyEvents" description="Build copyEvents plugin.">
+        <antcall target="minandpack">
+            <param name="name" value="copyEvents" />
+        </antcall>
+    </target>
+
+	<target name="dimensions" description="Build dimensions plugin.">
+        <antcall target="minandpack">
+            <param name="name" value="dimensions" />
+        </antcall>
+    </target>
+
+	<target name="mousewheel" description="Build mousewheel plugin.">
+        <antcall target="minandpack">
+            <param name="name" value="mousewheel" />
+        </antcall>
+    </target>
+
+	<target name="fxqueue" description="Build fxqueue plugin.">
+        <antcall target="minandpack">
+            <param name="name" value="fxqueue" />
+        </antcall>
+    </target>
+
+	<target name="multiple_events" description="Build multiple_events plugin.">
+        <antcall target="minandpack">
+            <param name="name" value="multiple_events" />
+        </antcall>
+    </target>
+
+	<target name="gradient" description="Build gradient plugin.">
+        <antcall target="minandpack">
+            <param name="name" value="gradient" />
+        </antcall>
+    </target>
+
+	<target name="livequery" description="Build Live Query plugin.">
+        <antcall target="minandpack">
+            <param name="name" value="livequery" />
+        </antcall>
+    </target>
+
+	<target name="metadata" description="Build metadata plugin.">
+        <antcall target="minandpack">
+            <param name="name" value="metadata" />
+        </antcall>
+    </target>
+	
+	<target name="tooltip" description="Build tooltip plugin.">
+        <antcall target="generic">
+            <param name="name" value="tooltip" />
+        </antcall>
+    </target>
+
+</project>

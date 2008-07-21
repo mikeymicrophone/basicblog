@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>
+			textNodes() &amp; replace() &amp; split() &amp; span() &amp; acronyms()  &amp; match()
+		</title>
+		<link rel="stylesheet" href="textNodes.css" type="text/css"></link>
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/plugins/debug/jquery.debug.js"></script>
+		<script type="text/javascript" src="/plugins/textNodes/jquery.textNodes.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$('#div1')
+		//		.debug('1')
+				.textNodes()
+					.replace(/later/g,"never")
+						.split()
+							.filter(function(){return this.nodeValue == 'then'})
+								.span()
+									.css('color','red')
+								.end()
+		//						.debug('a')
+							.end()
+		//					.debug('b')
+						.end()
+		//				.debug('c')
+					.end()
+				.end()
+		//		.debug('1 end');
+				$('#div2')
+		//			.debug('2')
+					.textNodes(true).replace(/and/g,"or").end().end()
+		//			.debug('2 end')
+		//		$('#div2a').debug('2a').textNodes(true).replace(/and/g,"or").end().end().debug('2a end')
+				$('#div3')
+		//			.debug('3')
+					.replace(/and/g,"or").end()
+		//			.debug('3 end')
+		//		$('#div3a').debug('3a').replace(/and/g,"or").end().debug('3a end')
+				$('#text').prepend(jQuery("<h1/>").text(document.title))
+				.acronyms({
+					 textNodes:"bastard jQuery text children"
+					,jQuery:"magical JavaScript"
+					,deep:"keep traversing the dom, just children"
+					,acronyms:"the method that adds acronyms to a jQuery"
+					,sometext:"any text from the hash"
+					,OptionalRegularExpression:"use with care, the default is a nice word split"
+				})
+				.links({
+					 jQuery:'http://jQuery.com'
+					,plugins:"http://jqueryjs.googlecode.com/svn/trunk/plugins/textNodes/"
+				});
+				var greenWords = {green:'green',hooked:'green',words:'green'}
+				$('#green').classes(greenWords)
+				$('#italics').match(/\b[A-Z]\w*\b/g).wrap('<i/>')
+			});
+		</script>
+	</head>
+	<body>
+		<div id="text">
+			<p>A collection of little plugins to make text manipulation easier in jQuery.This code is beta, and has been tested in IE 7, FF 2, Safari 2, and Opera 9.
+			</p>
+			<h2>textNodes(deep)</h2>
+			<p>returns each of the text nodes of a jQuery as a jQuery object of the textNodes. 
+			Searching deeply or the default shallow.
+			Compare to text() which returns them as a string. These textNodes can be separately wrapped and css'ed or filtered or SOME of the other jQuery methods.
+			To better explain these nodes,  you need to view source this page  to see how I have used them.
+			</p>
+			<h2>replace(regularExpression,replacement)</h2>
+			<p>looks like the String function replace, and attempts to mimic it, but it happens right in the dom! Either on a textNodes or a normal jQuery.
+			</p>
+			<h2>split(OptionalRegularExpression)</h2>
+			<p>looks like the String function split, and attempts to mimic it, but it happens right in the dom, in a textNode.
+			Care should be taken using your own OptionalRegularExpression, because anything that does not return the split delimiters as part of the split will be lost.
+			</p>
+			<h2>span()</h2>
+			<p>converts a textNode into a normal jQuery &lt;span&gt; node, for further jQuery usage.
+			</p>
+			<h2>acronyms(acronymsHash)</h2>
+			<p>runs through the jQuery wrapping some words with &lt;acronym title="sometext"&gt;
+			</p>
+			<h2>match(regularExpression)</h2>
+			<p>runs through the jQuery returning the portions of the text nodes that match the regularExpression.
+			</p>
+		</div>
+		<hr width="80%" />
+		<table>
+			<tr>
+			<th>Original</th>
+			<td><span id="div0">Now<i> and </i>then or maybe later</span></td>
+			</tr>
+			<tr>
+			<th>silly replace #1 <br/> then made red, and later changed to never</th>
+			<td><span id="div1">Now<i> and </i>then or maybe later</span></td>
+			</tr>
+			<tr>
+			<th>should be the same as </th>
+			<td><span>Now<i> and </i><span style="color: red;">then</span> or maybe never</span></td>
+			</tr>
+			<tr>
+			<th>silly replace #2 <br/> or inside &lt;i&gt; changed to and </th>
+			<td><span id="div2">Now<i> and </i>then or maybe later</span></td>
+			</tr>
+			<tr>
+			<th>should be the same as </th>
+			<td><div>Now<i> or </i>then or maybe later</div></td>
+			</tr>
+			<tr>
+			<th>silly replace #3 <br/> or inside &lt;i&gt; changed to and . simpler</th>
+			<td><span id="div3">Now<i> and </i>then or maybe later</span></td>
+			</tr>
+			<tr>
+			<th>should be the same as </th>
+			<td><span>Now<i> or </i>then or maybe later</span></td>
+			</tr>
+		</table>
+		<h3>green room <br/> 'green', 'hooked', and 'words' become green</h3>
+		<div id="green">Certain words are made green, they have been hooked!</div>
+		<hr width="80%" />
+		<h3>italic caps <br/> capital letters become italicized!</h3>
+		<div id="italics">Certain words, that start with a Capital letter are made italic. As in my name Jake Wolpert.</div>
+		<hr width="80%" />
+	</body>
+</html>

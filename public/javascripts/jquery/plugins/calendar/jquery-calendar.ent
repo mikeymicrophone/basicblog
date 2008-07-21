@@ -1,0 +1,29 @@
+<!ATTLIST input 
+  cal:appendText       CDATA #IMPLIED
+  cal:autoPopUp        (button | focus | both) #IMPLIED
+  cal:buttonImage      CDATA #IMPLIED
+  cal:buttonImageOnly  (true | false) #IMPLIED
+  cal:buttonText       CDATA #IMPLIED
+  cal:changeFirstDay   (true | false) #IMPLIED
+  cal:changeMonth      (true | false) #IMPLIED
+  cal:changeYear       (true | false) #IMPLIED
+  cal:clearText        CDATA #IMPLIED
+  cal:closeText        CDATA #IMPLIED
+  cal:closeAtTop       (true | false) #IMPLIED
+  cal:currentText      CDATA #IMPLIED
+  cal:customDate       CDATA #IMPLIED
+  cal:dateFormat       CDATA #IMPLIED
+  cal:dayNames         CDATA #IMPLIED
+  cal:fieldSettings    CDATA #IMPLIED
+  cal:firstDay         CDATA #IMPLIED
+  cal:hideIfNoPrevNext (true | false) #IMPLIED
+  cal:minDate          CDATA #IMPLIED
+  cal:maxDate          CDATA #IMPLIED
+  cal:monthNames       CDATA #IMPLIED
+  cal:nextText         CDATA #IMPLIED
+  cal:onSelect         CDATA #IMPLIED
+  cal:prevText         CDATA #IMPLIED
+  cal:showOtherMonths  (true | false) #IMPLIED
+  cal:speed            CDATA #IMPLIED
+  cal:yearRange        CDATA #IMPLIED
+>

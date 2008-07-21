@@ -1,0 +1,4 @@
+<configuration>
+  <conf name="make" value="build.js"/>
+  <conf name="html" value="main.html" />
+</configuration>

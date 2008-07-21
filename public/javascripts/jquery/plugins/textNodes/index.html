@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+	<head>
+		<title>
+			textNodes
+		</title>
+		<link rel="stylesheet" href="textNodes.css" type="text/css"></link>
+		<script type="text/javascript" src="/js/jquery.js"></script> 
+		<script type="text/javascript" src="/plugins/textNodes/jquery.textNodes.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$("body")
+				.links({
+					 plugin:"http://jqueryjs.googlecode.com/svn/trunk/plugins/textNodes/"
+					,textNodes:"http://jqueryjs.googlecode.com/svn/trunk/plugins/textNodes/"
+					,one:"textNodes.html"
+					,two:"page2.html"
+				})
+				.acronyms({
+					 textNodes:"bastard jQuery text children"
+					,jQuery:"magical JavaScript"
+					,plugin:"add more features to jQuery"
+				});
+			});
+		</script> 
+	</head>
+	<body>
+		textNodes is a jQuery plugin.
+		Here are a few links to demo pages. one, two.
+	</body>
+</html>
